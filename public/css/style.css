@@ -42,8 +42,13 @@ body {
     font-size: larger;
     letter-spacing: .2rem;
   }
+
+  #intro {
+    margin: 10px 30% 10px 30%;
+  }
   
   .card {
     --bs-card-bg: var(--medium_green);
+    border-width: 2px;
   }
   
