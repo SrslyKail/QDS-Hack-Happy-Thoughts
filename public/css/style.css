@@ -1,9 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Hind);
 
-body {
-  font-family: "Hind";
-}
-
 :root {
   --primary_blue: #004777;
   --primary_teal: #38A3A5;
@@ -12,6 +8,11 @@ body {
   --light_green: #C7F9CC;
 }
 
+body {
+  font-family: "Hind";
+  background-color: var(--primary_teal);
+}
+
 .card {
-  --bs-card-bg: var(--primary_green);
+  --bs-card-bg: var(--medium_green);
 }

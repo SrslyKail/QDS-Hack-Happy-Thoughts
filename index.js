@@ -12,8 +12,8 @@ app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
 
 //Gets the landing page
-//TODO: Refactor this function out so its not anonymous.
 app.get("/", function (req, res) {
+  console.log("User requested homepage.");
   let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
   res.send(doc);
 });
