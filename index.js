@@ -11,10 +11,17 @@ app.use("/public", express.static("./public"));
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
+app.use(express.static('app/html'));
 
 //Gets the landing page
 app.get("/", function (req, res) {
   let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
+  res.send(doc);
+});
+
+//Redirect to submit page
+app.get('/SubmitThought', (req, res) => {
+  let doc = fileSystem.readFileSync("./app/html/SubmitThought.html", "utf8");
   res.send(doc);
 });
 
