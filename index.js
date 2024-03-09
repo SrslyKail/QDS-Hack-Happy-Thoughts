@@ -15,14 +15,26 @@ app.use(express.static('app/html'));
 
 //Gets the landing page
 app.get("/", function (req, res) {
-  let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
-  res.send(doc);
+  let doc = fileSystem.readFileSync("./app/html/index.html", "utf8", (err, data) => {
+    if (err) {
+        console.error(err);
+        res.status(500).send("server error");
+        return;
+    }
+    res.send(data);
+});
 });
 
 //Redirect to submit page
 app.get('/SubmitThought', (req, res) => {
-  let doc = fileSystem.readFileSync("./app/html/SubmitThought.html", "utf8");
-  res.send(doc);
+  let doc = fileSystem.readFileSync("./app/html/SubmitThought.html", (err, data) => {
+    if (err) {
+        console.error(err);
+        res.status(500).send("server error");
+        return;
+    }
+    res.send(data);
+});
 });
 
 //gets navbar
@@ -36,6 +48,13 @@ app.get("/navbar", function (req, res) {
       }
       res.send(data);
   });
+});
+
+//gets hamburger
+app.get("/navbar", function (req, res) {
+  let doc = fs.readFileSync("./app/data/hamburger.js", "utf8");
+  res.setHeader("Content-Type", "application/json");
+  res.send(doc);
 });
 
 //Gets a JSON card
