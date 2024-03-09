@@ -34,31 +34,31 @@ firebase.auth().onAuthStateChanged(user => {
 
 // Submit a thought
 $("#thoughtForm").submit(function (event) {
-      event.preventDefault();
-      submitThought();
-    });
+    event.preventDefault();
+    submitThought();
+});
 
-    // Submit a thought
-    function submitThought() {
-      var thought = $("#thought").val();
-      console.log('Submitted:', thought);
-      db.collection("thoughts").add({
-          image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6", // place holder for a url
-        thought: thought,
+// Submit a thought
+function submitThought() {
+    var thought = $("#thought").val();
+    console.log('Submitted:', thought);
+    db.collection("thoughts").add({
+        image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6", // place holder for a url
+        text: thought,
         // user: userName,  // not sure why i cannot include userName at the moment
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      })
+    })
         .then(function (docRef) {
-          console.log("Thought submitted with ID: ", docRef.id);
-          // Reset form after submission
-          $("#thought").val('');
-          // Provide feedback to the user
-          //     swal("Thought submitted successfully!");
+            console.log("Thought submitted with ID: ", docRef.id);
+            // Reset form after submission
+            $("#thought").val('');
+            // Provide feedback to the user
+            //     swal("Thought submitted successfully!");
         })
         .catch(function (error) {
-          console.error("Error adding thought: ", error);
+            console.error("Error adding thought: ", error);
         });
-    }
+}
 
 // Obtain the current user name
 function getUserInfoFromAuth() {
