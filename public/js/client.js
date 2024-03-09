@@ -83,7 +83,9 @@ function getThoughts() {
         //Currently it'll just read everything in the database
         //We could modify it later to only grab X amount.
         allThoughts.forEach((thought) => {
-          if (column % 3 == 0) { // Checks if we need to move down a row
+          if (
+            (column != 0)
+            && (column % 3 == 0)) { // Checks if we need to move down a row
             row++;
             column = 0;
             if (row >= rowList.length) { // Check if we need to make a new row
