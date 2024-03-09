@@ -90,7 +90,7 @@ function getThoughts() {
               createNewRow(cardJson.row);
             }
           }
-          while (rowList[row].children.length <= 3){ // If the row if already full
+          while (rowList[row].children.length >= 3){ // If the row if already full
             row++;
             if (row >= rowList.length){ // Check if we need to make a new row
               createNewRow(cardJson.row);
