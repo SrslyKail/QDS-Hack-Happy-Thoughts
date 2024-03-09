@@ -79,6 +79,8 @@ a.navbar-brand {
   transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
+  align-items: center;
+  justify-content: center;
 }
 
 .card * {
