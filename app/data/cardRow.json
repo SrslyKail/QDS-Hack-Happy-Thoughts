@@ -1,6 +1,9 @@
 {
   "row": "row m-1 justify-content-evenly",
   "card": "card mx-1 p-2 col",
-  "img": "card-img",
-  "cardBody":"card-img-overlay"
+  "inner" : "card-inner",
+  "front" : "card-face front",
+  "back" : "card-face back",
+  "overlay": "card-img",
+  "image" : "img"
 }

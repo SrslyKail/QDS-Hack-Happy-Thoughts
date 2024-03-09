@@ -153,18 +153,31 @@ function createNewRow(classNames) {
  */
 function createNewCard(jsonData, img) {
   let card = document.createElement("div");
-  let image = document.createElement("img");
-  let cardBody = document.createElement("div");
+  let inner = document.createElement('div');
+  let front = document.createElement('div');
+  let image = document.createElement("div");
+  let pic = document.createElement('img');
+  let back = document.createElement('div');
 
   card.className = jsonData.card;
-  image.src = img;
-  image.className = jsonData.img;
-  cardBody.className = jsonData.cardBody;
+  back.className = jsonData.back;
+  front.className = jsonData.front;
+  pic.src = img;
+  image.className = jsonData.ovarlay;
+  inner.className = jsonData.inner;
 
-  card.append(image, cardBody);
+  front.append(pic);
+  back.append("Helloe");
+  inner.append(front,back);
+  card.append(inner);
 
   card.addEventListener("click", onCardClick);
   return card;
 }
+
+document.addEventListener('click', function(){
+    card = document.querySelector(".card-inner");
+    card.classList.toggle('is-flipped');
+});
 
 getThoughts()
