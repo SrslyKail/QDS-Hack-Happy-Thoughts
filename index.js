@@ -27,6 +27,7 @@ app.get('/SubmitThought', (req, res) => {
 
 //gets navbar
 app.get("/navbar", function (req, res) {
+  res.setHeader("Content-Type", "text/html");
   fileSystem.readFile("./app/data/navbar.html", "utf8", (err, data) => {
       if (err) {
           console.error(err);
@@ -34,7 +35,7 @@ app.get("/navbar", function (req, res) {
           return;
       }
       res.send(data);
-  })
+  });
 });
 
 //Gets a JSON card
