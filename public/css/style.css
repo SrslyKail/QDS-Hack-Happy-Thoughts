@@ -9,23 +9,10 @@
 }
 
 body {
-  @import url(https://fonts.googleapis.com/css?family=Hind);
+  font-family: "Hind";
   background-color: var(--primary_green);
 }
 
-  :root {
-    --primary_blue: #004777;
-    --primary_teal: #38A3A5;
-    --primary_green: #57CC99;
-    --medium_green: #80ED99;
-    --light_green: #C7F9CC;
-  }
-  
-  body {
-    font-family: "Hind";
-    background-color: var(--primary_green);
-  }
-  
   img { 
     max-width: 100%; 
   }
@@ -36,6 +23,7 @@ body {
     height: 50px;
     background-size: 100%;
     background-image: url(../img/logo.png); /*TEMPORARY. im not sure how to work with that svg - its a wall of text..*/
+    /*background-image: url(../img/logo2.png); /*tried inverted version. unsure which is better (<-this png is Very low quality)*/
     text-indent: -999em;
   }
   
@@ -44,29 +32,14 @@ body {
     text-transform: uppercase;
   }
   
+  .btn {
+    background-color: var(--primary_blue);
+    color: var(--light_green);
+    border-color: #00244F;
+    border-width: 2px;
+  }
+  
   .card {
     --bs-card-bg: var(--medium_green);
   }
   
-
-img { 
-  max-width: 100%; 
-}
-
-a.navbar-brand {
-  margin-left:20px;
-  width: 50px;
-  height: 50px;
-  background-size: 100%;
-  background-image: url(../img/logo.svg); /*TEMPORARY. im not sure how to work with that svg - its a wall of text..*/
-  text-indent: -999em;
-}
-
-.navbar {
-  background-color: var(--primary_green);
-  text-transform: uppercase;
-}
-
-.card {
-  --bs-card-bg: var(--medium_green);
-}
