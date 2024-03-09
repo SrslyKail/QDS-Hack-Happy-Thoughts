@@ -40,6 +40,12 @@ a.navbar-brand {
   letter-spacing: .2rem;
 }
 
+.envelope{
+  margin-left:35% ;
+  width: 35%;
+  height: 35%;
+}
+
 .row {
   row-gap: 5vw;
 }
