@@ -103,7 +103,7 @@ function getThoughts() {
           
           //console.log(thoughtText);
           
-          var card = createNewCard(cardJson, image);
+          var card = createNewCard(cardJson, image, thoughtText);
           currentRow.append(card);
           column++;
         });
