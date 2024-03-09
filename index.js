@@ -1,71 +1,54 @@
-// https://expressjs.com/en/guide/routing.html
+//The initial JS script that launches the page client-side
 
-// REQUIRES
+//REQUIRES
 const express = require("express");
 const app = express();
-//const app = require("express")();
 app.use(express.json());
-const fs = require("fs");
+const fileSystem = require("fs");
 
-
-// just like a simple web server like Apache web server
-// we are mapping file system paths to the app's virtual paths
+//Map local paths to the apps virtual paths
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
 
-
+//Gets the landing page
+//TODO: Refactor this function out so its not anonymous.
 app.get("/", function (req, res) {
-    let doc = fs.readFileSync("./app/html/index.html", "utf8");
-
-    // just send the text stream
-    res.send(doc);
+  let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
+  res.send(doc);
 });
 
-app.get("/markers", function (req, res) {
+//Gets a JSON card
 
-    let doc = fs.readFileSync("./app/data/google-map-markers.js", "utf8");
-    res.setHeader("Content-Type", "application/json");
-    // just send the text stream
-    res.send(doc);
-});
+// app.get("/article", function(req, res) {
+//   let formatOfResponse = req.query["format"];
+//   if (formatOfResponse == "json") {
+//     res.setHeader("Content-Type", "text/html");
+//     res.send(
+//       fileSystem.readFileSync("./app/data/article.json",
+//       "utf8")
+//     );
+//   } else {
+//     res.send({status: "fail", msg: "Wrong format!"});
+//   }
+// });
 
-/*
- * This one accepts a query string
- */
-app.get("/weekdays", function(req, res) {
-
-    let formatOfResponse = req.query["format"];
-    //let formatOfResponse = req.query.format;
-    //console.log(req.query);
-
-    // e.g.,: http://localhost:8000/weekdays?format=html
-    // e.g.,: http://localhost:8000/weekdays?format=json
-    if (formatOfResponse == "html") {
-        // MIME type
-        res.setHeader("Content-Type", "text/html");
-        res.send(fs.readFileSync("./app/data/weekdays.html", "utf8"));
-
-    } else if (formatOfResponse == "json") {
-        // MIME type
-        res.setHeader("Content-Type", "application/json");
-        res.send(fs.readFileSync("./app/data/weekdays.js", "utf8"));
-
-    } else {
-        // just send JSON message
-        res.send({ status: "fail", msg: "Wrong format!" });
+//gets locally stored images.
+app.get("/img", function(req, res) {
+  let requestFileName = req.query["name"].toLowerCase();
+  let files = fileSystem.readdirSync("./public/img");
+  for (i in files) {
+    var file = files[i]
+    if (file.includes(requestFileName)) {
+      res.send(
+        String("/img/" + file));
     }
+  }
+  //files.forEach((file) => console.log(file));
 });
 
-// for page not found (i.e., 404)
-app.use(function (req, res, next) {
-    // this could be a separate file too - but you'd have to make sure that you have the path
-    // correct, otherewise, you'd get a 404 on the 404 (actually a 500 on the 404)
-    res.status(404).send("<html><head><title>Page not found!</title></head><body><p>Nothing here.</p></body></html>");
-});
-
-// RUN SERVER
+// RUN THE SERVER
 let port = 8000;
 app.listen(port, function () {
-    console.log("Example app listening on port " + port + "!");
+  console.log("Website is listening on port: " + port);
 });
