@@ -1,6 +1,6 @@
 {
   "row": "row m-1 justify-content-evenly",
-  "card": "card mx-1 p-2 col",
+  "card": "card mx-1 p-2 col justify-content-center align-items-center",
   "front" : "card-body front",
   "back" : "card-body back",
   "image": "card-img"
