@@ -43,7 +43,7 @@ document.querySelectorAll(".clear").forEach(function (currentElement, currentInd
 
 //loads navbar with dom
 if (document.readyState !== 'loading') {
-  console.log('document is already ready');
+  //console.log('document was ready');
   ajaxGET("/navbar", function (data) {
   document.getElementById("navbarPlaceholder").innerHTML = data;
   document.addEventListener('click', function (event) {event.preventDefault();});
@@ -51,7 +51,7 @@ if (document.readyState !== 'loading') {
   });
 } else {
   document.addEventListener('DOMContentLoaded', function () {
-      console.log('document was not ready');
+      //console.log('document was not ready');
       ajaxGET("/navbar", function (data) {
      
       document.getElementById("navbarPlaceholder").innerHTML = data;

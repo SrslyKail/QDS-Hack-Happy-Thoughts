@@ -42,13 +42,33 @@ body {
     font-size: larger;
     letter-spacing: .2rem;
   }
-  
+
   .row {
     row-gap: 5vw;
   }
 
+  #intro {
+    margin: 10px 30% 10px 30%;
+  }
+  #intro #description {
+    text-align: center;
+    margin: 15px auto 15px auto;
+  }
+
+  #intro input[type=text] {
+    padding: 6px;
+    margin-bottom:5%;
+    font-size: 17px;
+    border-width: 2px;
+    border-style: solid;
+    width: 100%;
+    border-color: var(--primary_teal);
+    text-indent: 5px;
+  }
+  
   .card {
     --bs-card-bg: var(--medium_green);
+    border-width: 2px;
     max-width: 30vw;
     flex-basis: 30%;
   }
