@@ -32,34 +32,6 @@ firebase.auth().onAuthStateChanged(user => {
     }
 })
 
-// Submit a thought
-$("#thoughtForm").submit(function (event) {
-    event.preventDefault();
-    submitThought();
-});
-
-// Submit a thought
-function submitThought() {
-    var thought = $("#thought").val();
-    console.log('Submitted:', thought);
-    db.collection("thoughts").add({
-        image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6", // place holder for a url
-        text: thought,
-        // user: userName,  // not sure why i cannot include userName at the moment
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-        .then(function (docRef) {
-            console.log("Thought submitted with ID: ", docRef.id);
-            // Reset form after submission
-            $("#thought").val('');
-            // Provide feedback to the user
-            //     swal("Thought submitted successfully!");
-        })
-        .catch(function (error) {
-            console.error("Error adding thought: ", error);
-        });
-}
-
 // Obtain the current user name
 function getUserInfoFromAuth() {
     firebase.auth().onAuthStateChanged(user => {
@@ -75,3 +47,68 @@ function getUserInfoFromAuth() {
     })
 }
 
+
+const thoughtCollection = db.collection('thoughts');
+const storage = firebase.storage();
+// Function to handle form submission
+function handleSubmit(event) {
+    event.preventDefault();
+
+    // Get form values
+    const thoughtText = document.getElementById('thought').value;
+    const postImage = document.getElementById('postImage').files[0];
+
+    // Prepare data object
+    var data = {
+        // TODO: change the default image to something else 
+        image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6",
+        text: thoughtText,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    // If an image is uploaded, upload it to storage and add its URL to data
+    if (postImage) {
+        const storageRef = firebase.storage().ref();
+        const imageRef = storageRef.child('images/' + postImage.name);
+
+        // Upload image to Firebase Storage
+        imageRef.put(postImage).then(function (snapshot) {
+            console.log('Uploaded a blob or file!');
+            // Get download URL of the image
+            imageRef.getDownloadURL().then(function (url) {
+                // Add image URL to data
+
+                // Add data to Firestore
+                var data = {
+                    image: url,
+                    text: thoughtText,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                data.image = url;
+                addThoughtToFirestore(data);
+            });
+        });
+
+    } else {
+        // If no image is uploaded, directly add data to Firestore
+        addThoughtToFirestore(data);
+    }
+}
+
+// Function to add data to Firestore
+function addThoughtToFirestore(data) {
+    thoughtCollection.add(data)
+        .then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+            // Provide feedback to the user
+            swal("Thought submitted successfully!");
+            // Reset form after successful submission
+            document.getElementById('thoughtForm').reset();
+        })
+        .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+}
+
+// Event listener for form submission
+document.getElementById('thoughtForm').addEventListener('submit', handleSubmit);
