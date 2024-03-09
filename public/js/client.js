@@ -186,3 +186,20 @@ document.addEventListener('thoughtsLoaded', function() {
         });
       }
 });
+
+//loads hamburger menu on click
+document.querySelector("#navbarPlaceholder").addEventListener("click", function (e) {
+  console.log("hamburger loaded");
+  ajaxGET("/hamburger", function (data) {
+      let parsedData = JSON.parse(data);
+          let str = "<table>";
+          for(let i = 0; i < parsedData.length; i++) {
+              let item = parsedData[i];
+              str += "<tr><td id=firsttd>" + item["item"] + "</td><td></td></tr>";
+                  
+          }
+          str += "</table>";
+          document.getElementById("hamburger").innerHTML = str;
+          console.log(str);
+  });
+});

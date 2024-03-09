@@ -51,8 +51,8 @@ app.get("/navbar", function (req, res) {
 });
 
 //gets hamburger
-app.get("/navbar", function (req, res) {
-  let doc = fs.readFileSync("./app/data/hamburger.js", "utf8");
+app.get("/hamburger", function (req, res) {
+  let doc = fileSystem.readFileSync("./app/data/hamburger.js", "utf8");
   res.setHeader("Content-Type", "application/json");
   res.send(doc);
 });
