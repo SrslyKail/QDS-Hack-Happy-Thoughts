@@ -72,7 +72,7 @@ function getThoughts() {
         //console.log("Json data:", cardJson);
 
         //Need an iterator so we dont have more than 3 per row!
-        let column = 1;
+        let column = 0;
         //To keep track of which row we're on
         let row = 0;
         

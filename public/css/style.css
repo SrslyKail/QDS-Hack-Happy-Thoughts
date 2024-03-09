@@ -20,6 +20,7 @@ a.navbar-brand {
   height: 100px;
   background-size: 100%;
   background-image: url(../img/logo.png);
+  background-repeat: no-repeat;
   /*TEMPORARY. im not sure how to work with that svg - its a wall of text..*/
   /*background-image: url(../img/logo2.png); /*tried inverted version. unsure which is better (<-this png is Very low quality)*/
   text-indent: -999em;
@@ -39,6 +40,12 @@ a.navbar-brand {
   padding: 8px 20px 8px 20px;
   font-size: larger;
   letter-spacing: .2rem;
+}
+
+.envelope{
+  margin-left:35% ;
+  width: 35%;
+  height: 35%;
 }
 
 .row {
@@ -71,12 +78,19 @@ a.navbar-brand {
   text-indent: 5px;
 }
 
+
+.row {
+  --gap: 5vw;
+  row-gap: var(--gap);
+  margin-bottom: calc(var(--gap) / 2) !important;
+}
+
 .card {
   --bs-card-bg: var(--medium_green);
   border-width: 2px;
-  max-width: 350px;
-  max-height: 350px;
-  flex-basis: 30%;
+  max-width: 30vw;
+  max-height: 50vh;
+  aspect-ratio: 1/1;
   transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
