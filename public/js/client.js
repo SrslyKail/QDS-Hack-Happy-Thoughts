@@ -118,10 +118,13 @@ function getThoughts() {
           
           //console.log(thoughtText);
           
-          var card = createNewCard(cardJson, image);
+          var card = createNewCard(cardJson, image, thoughtText);
           currentRow.append(card);
           column++;
         });
+        //Dispatch event listener when cards are loaded
+        
+        document.dispatchEvent(new Event('thoughtsLoaded'));
       });
     })/*.then(() => { //Currently doesnt work. Row Count is 0.
       //Check if our last row is too short
@@ -138,6 +141,7 @@ function getThoughts() {
         cardArea.removeChild(lastRow);
       }
     })*/;
+    
 }
 
 function createNewRow(classNames) {
@@ -151,7 +155,7 @@ function createNewRow(classNames) {
  * @param {*} img the image to put on the card
  * @returns {HTMLDivElement} a new card
  */
-function createNewCard(jsonData, img) {
+function createNewCard(jsonData, img, thoughtText) {
   let card = document.createElement("div");
   let inner = document.createElement('div');
   let front = document.createElement('div');
@@ -167,18 +171,25 @@ function createNewCard(jsonData, img) {
   inner.className = jsonData.inner;
 
   front.append(pic);
-  back.append("Helloe");
+  back.append(thoughtText);
   inner.append(front,back);
-  inner.addEventListener('click', function(){
-    card = document.querySelector(".card-inner");
-    card.classList.toggle('is-flipped');
-});
   card.append(inner);
 
   card.addEventListener("click", onCardClick);
   return card;
 }
 
-document
-
 getThoughts()
+
+
+
+document.addEventListener('thoughtsLoaded', function() {
+  let cards = document.querySelectorAll(".card-inner");
+  console.log(cards)
+  for (var i = 0 ; i< cards.length; i++){
+        let card = cards[i]
+        card.addEventListener('click', function(){
+            card.classList.toggle('is-flipped');
+        });
+      }
+});
