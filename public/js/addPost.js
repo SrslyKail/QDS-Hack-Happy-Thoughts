@@ -12,14 +12,6 @@ function ajaxGET(url, callback) {
     xhr.send();
 }
 
-
-$(document).ready(function () {
-    ajaxGET("/navbar", function (data) {
-        document.getElementById("navbarPlaceholder").innerHTML = data;
-    });
-    getUserInfoFromAuth()
-});
-
 var userName;
 firebase.auth().onAuthStateChanged(user => {
     // Check if a user is signed in:
