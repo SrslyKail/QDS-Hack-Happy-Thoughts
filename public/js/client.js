@@ -61,21 +61,6 @@ if (document.readyState !== 'loading') {
 }
 
 
-// Setup for each card to be clickable
-document.querySelectorAll(".card").forEach(function (currentElement, currentIndex, listObj) {
-  //console.log(currentElement, currentIndex, listObj);
-  currentElement.addEventListener("click", onCardClick);
-})
-
-/**
- * Is called when a card is clicked.
- * @param {PointerEvent} e The event that called this function.
- * @returns {void}
- */
-function onCardClick(e) {
-  console.log(e);
-}
-
 /**
  * Gets thoughts from the server to be displayed
  */
@@ -122,9 +107,6 @@ function getThoughts() {
           currentRow.append(card);
           column++;
         });
-        //Dispatch event listener when cards are loaded
-        
-        document.dispatchEvent(new Event('thoughtsLoaded'));
       });
     })/*.then(() => { //Currently doesnt work. Row Count is 0.
       //Check if our last row is too short
@@ -141,7 +123,6 @@ function getThoughts() {
         cardArea.removeChild(lastRow);
       }
     })*/;
-    
 }
 
 function createNewRow(classNames) {
@@ -152,32 +133,45 @@ function createNewRow(classNames) {
 
 /**
  * @param {*} jsonData the Json data used to create the card.
- * @param {*} img the image to put on the card
- * @returns {HTMLDivElement} a new card
+ * @param {*} img the image to put on the card.
+ * @param {*} thought the text to put on the card. 
+ * @returns {HTMLDivElement} a new card.
  */
-function createNewCard(jsonData, img, thoughtText) {
+function createNewCard(jsonData, img, thought) {
+  
   //create the card structure from JSON
   let card = document.createElement("div");
-  let inner = document.createElement('div');
-  let front = document.createElement('div');
-  let image = document.createElement("div");
-  let pic = document.createElement('img');
-  let back = document.createElement('div');
+  let image = document.createElement("img");
+  let front = document.createElement("div");
+  let back = document.createElement("div");
 
   card.className = jsonData.card;
-  back.className = jsonData.back;
+  image.src = img;
+  image.className = jsonData.image;
   front.className = jsonData.front;
-  pic.src = img;
-  image.className = jsonData.ovarlay;
-  inner.className = jsonData.inner;
-
-  front.append(pic);
-  back.append(thoughtText);
-  inner.append(front,back);
-  card.append(inner);
+  back.className = jsonData.back;
+  back.innerHTML = `<p>${thought}</p>`;
+  front.append(image);
+  card.append(front, back);
 
   card.addEventListener("click", onCardClick);
   return card;
+}
+
+/**
+ * Is called when a card is clicked.
+ * @param {PointerEvent} e The event that called this function.
+ * @returns {void}
+ */
+function onCardClick(e) {
+  let target = e.target;
+  console.log(e.target.classList);
+  while (!target.classList.contains("card")){
+    console.log("searching for card")
+    target = target.parentNode;
+  }
+  console.log(target);
+  target.classList.toggle('is-flipped');
 }
 
 getThoughts()
@@ -185,14 +179,11 @@ getThoughts()
 
 
 document.addEventListener('thoughtsLoaded', function() {
-  //colletcts all cards when they are loaded
   let cards = document.querySelectorAll(".card-inner");
   console.log(cards)
-  //iterates through the cards
   for (var i = 0 ; i< cards.length; i++){
         let card = cards[i]
         card.addEventListener('click', function(){
-            //adds new class to the inner class to flip the card
             card.classList.toggle('is-flipped');
         });
       }
