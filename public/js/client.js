@@ -2,6 +2,7 @@
 //console.log("Client script loaded.");
 
 const cardArea = document.getElementById("cardArea");
+const rowList = cardArea.getElementsByClassName("row");
 
 function ajaxGET(url, callback) {
   const xhr = new XMLHttpRequest();
@@ -21,7 +22,6 @@ function ajaxGET(url, callback) {
   }
   xhr.open("GET", url);
   xhr.send();
-
 }
 
 //default setup to be clickable
@@ -84,33 +84,60 @@ function getThoughts() {
     .then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
         let cardJson = JSON.parse(jsonData);
-        console.log("Json data:", cardJson);
+        //console.log("Json data:", cardJson);
+
         //Need an iterator so we dont have more than 3 per row!
         let column = 1;
         //To keep track of which row we're on
         let row = 0;
-        let rowList = cardArea.getElementsByClassName("row");
+        
+        //this deals with initializing the page
         if (rowList.length == 0) {
           createNewRow(cardJson.row);
         }
+        //Currently it'll just read everything in the database
+        //We could modify it later to only grab X amount.
         allThoughts.forEach((thought) => {
-          if (column % 3 == 0) {
+          if (column % 3 == 0) { // Checks if we need to move down a row
             row++;
             column = 0;
-            if (row >= rowList.length) {
+            if (row >= rowList.length) { // Check if we need to make a new row
               createNewRow(cardJson.row);
             }
           }
-          let currentRow = rowList[row]
+          while (rowList[row].children.length <= 3){ // If the row if already full
+            row++;
+            if (row >= rowList.length){ // Check if we need to make a new row
+              createNewRow(cardJson.row);
+              break;
+            }
+          }
+          let currentRow = rowList[row];
           let image = thought.data().image;
           let thoughtText = thought.data().text;
-          console.log(thoughtText);
+          
+          //console.log(thoughtText);
+          
           var card = createNewCard(cardJson, image);
           currentRow.append(card);
           column++;
         });
       });
-    });
+    })/*.then(() => { //Currently doesnt work. Row Count is 0.
+      //Check if our last row is too short
+      let rowCount = rowList.length;
+      console.log(`row count: ${rowCount}`);
+      let lastRow = rowList[rowCount-1];
+      console.log(lastRow.hasChildNodes);
+      if (
+        (lastRow.hasChildNodes) 
+        && (lastRow.children.length < 3)
+        ) {
+        //if it is, delete it.
+        console.log("Removing last row.");
+        cardArea.removeChild(lastRow);
+      }
+    })*/;
 }
 
 function createNewRow(classNames) {
@@ -136,6 +163,7 @@ function createNewCard(jsonData, img) {
 
   card.append(image, cardBody);
 
+  card.addEventListener("click", onCardClick);
   return card;
 }
 
