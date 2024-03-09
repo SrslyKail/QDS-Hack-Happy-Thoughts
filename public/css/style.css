@@ -7,29 +7,6 @@ body {
   padding: 0px;
 }
 
-::root {
+:root {
   --margin_size: minmax(10px, 1vw)
-}
-
-.container {
-  display: grid;
-  margin: var(--margin_size);
-  min-height: 100vh;
-  /* margin * 2 to account for left and right margin */
-  width: calc(100svw - var((--margin_size) * 2));
-  row-gap: minmax(1vw, 1vh);
-  grid-template-rows: repeat(auto-fit, minmax(30vh, auto));
-    grid-template-columns: repeat(auto-fit, 30vh);
-}
-
-.cardRow{
-  display: grid;
-  column-gap: auto;
-  grid-template-columns: repeat(30%, 3);
-  background-color: blue;
-}
-
-.card {
-  display: grid;
-  background-color: orange;
 }
