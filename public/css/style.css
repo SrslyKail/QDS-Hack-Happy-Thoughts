@@ -45,7 +45,12 @@ a.navbar-brand {
 }
 
 #intro {
+  display: flex;
+  flex-direction: column;
   margin: 10px 30% 10px 30%;
+}
+#intro > .card {
+  margin: 0 auto;
 }
 
 #intro #description {
@@ -76,13 +81,19 @@ a.navbar-brand {
   position: relative;
 }
 
+.card * {
+  display: flex;
+}
+
 .card.is-flipped {
   transform: rotateY(180deg);
 }
 
 .card-body {
+  max-height: inherit;
   backface-visibility: hidden;
 }
+
 
 .back {
   transform: rotateY(180deg);
