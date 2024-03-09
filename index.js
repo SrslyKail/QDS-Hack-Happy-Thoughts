@@ -18,6 +18,18 @@ app.get("/", function (req, res) {
   res.send(doc);
 });
 
+//gets navbar
+app.get("/navbar", function (req, res) {
+  fileSystem.readFile("./app/data/navbar.html", "utf8", (err, data) => {
+      if (err) {
+          console.error(err);
+          res.status(500).send("server error");
+          return;
+      }
+      res.send(data);
+  })
+});
+
 //Gets a JSON card
 
 // app.get("/article", function(req, res) {
@@ -46,17 +58,6 @@ app.get("/img", function(req, res) {
   }
   //files.forEach((file) => console.log(file));
 });
-
-/*app.get("/navbar", function (req, res) {
-  fs.readFile("./app/html/navbar.html", "utf8", (err, data) => {
-      if (err) {
-          console.error(err);
-          res.status(500).send("server error");
-          return;
-      }
-      res.send(data);
-  })
-});*/
 
 // RUN THE SERVER
 let port = 8000;

@@ -10,7 +10,25 @@
 
 body {
   font-family: "Hind";
-  background-color: var(--primary_teal);
+  background-color: var(--primary_green);
+}
+
+img { 
+  max-width: 100%; 
+}
+
+a.navbar-brand {
+  margin-left:20px;
+  width: 50px;
+  height: 50px;
+  background-size: 100%;
+  background-image: url(../img/logo.svg); /*TEMPORARY. im not sure how to work with that svg - its a wall of text..*/
+  text-indent: -999em;
+}
+
+.navbar {
+  background-color: var(--primary_green);
+  text-transform: uppercase;
 }
 
 .card {
