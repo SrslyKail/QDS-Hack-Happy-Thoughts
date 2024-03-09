@@ -61,21 +61,6 @@ if (document.readyState !== 'loading') {
 }
 
 
-// Setup for each card to be clickable
-document.querySelectorAll(".card").forEach(function (currentElement, currentIndex, listObj) {
-  //console.log(currentElement, currentIndex, listObj);
-  currentElement.addEventListener("click", onCardClick);
-})
-
-/**
- * Is called when a card is clicked.
- * @param {PointerEvent} e The event that called this function.
- * @returns {void}
- */
-function onCardClick(e) {
-  console.log(e);
-}
-
 /**
  * Gets thoughts from the server to be displayed
  */
@@ -148,37 +133,44 @@ function createNewRow(classNames) {
 
 /**
  * @param {*} jsonData the Json data used to create the card.
- * @param {*} img the image to put on the card
- * @returns {HTMLDivElement} a new card
+ * @param {*} img the image to put on the card.
+ * @param {*} thought the text to put on the card. 
+ * @returns {HTMLDivElement} a new card.
  */
-function createNewCard(jsonData, img) {
+function createNewCard(jsonData, img, thought) {
+  
   let card = document.createElement("div");
-  let inner = document.createElement('div');
-  let front = document.createElement('div');
-  let image = document.createElement("div");
-  let pic = document.createElement('img');
-  let back = document.createElement('div');
+  let image = document.createElement("img");
+  let front = document.createElement("div");
+  let back = document.createElement("div");
 
   card.className = jsonData.card;
-  back.className = jsonData.back;
+  image.src = img;
+  image.className = jsonData.image;
   front.className = jsonData.front;
-  pic.src = img;
-  image.className = jsonData.ovarlay;
-  inner.className = jsonData.inner;
-
-  front.append(pic);
-  back.append("Helloe");
-  inner.append(front,back);
-  inner.addEventListener('click', function(){
-    card = document.querySelector(".card-inner");
-    card.classList.toggle('is-flipped');
-});
-  card.append(inner);
+  back.className = jsonData.back;
+  back.innerHTML = `<p>${thought}</p>`;
+  front.append(image);
+  card.append(front, back);
 
   card.addEventListener("click", onCardClick);
   return card;
 }
 
-document
+/**
+ * Is called when a card is clicked.
+ * @param {PointerEvent} e The event that called this function.
+ * @returns {void}
+ */
+function onCardClick(e) {
+  let target = e.target;
+  console.log(e.target.classList);
+  while (!target.classList.contains("card")){
+    console.log("searching for card")
+    target = target.parentNode;
+  }
+  console.log(target);
+  target.classList.toggle('is-flipped');
+}
 
 getThoughts()
