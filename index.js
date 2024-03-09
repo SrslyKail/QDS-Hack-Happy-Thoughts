@@ -7,6 +7,7 @@ app.use(express.json());
 const fileSystem = require("fs");
 
 //Map local paths to the apps virtual paths
+app.use("/public", express.static("./public"));
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
@@ -15,6 +16,18 @@ app.use("/img", express.static("./public/img"));
 app.get("/", function (req, res) {
   let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
   res.send(doc);
+});
+
+//gets navbar
+app.get("/navbar", function (req, res) {
+  fileSystem.readFile("./app/data/navbar.html", "utf8", (err, data) => {
+      if (err) {
+          console.error(err);
+          res.status(500).send("server error");
+          return;
+      }
+      res.send(data);
+  })
 });
 
 //Gets a JSON card

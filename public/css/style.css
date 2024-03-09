@@ -10,9 +10,40 @@
 
 body {
   font-family: "Hind";
-  background-color: var(--primary_teal);
+  background-color: var(--primary_green);
 }
 
-.card {
-  --bs-card-bg: var(--medium_green);
-}
+  img { 
+    max-width: 100%; 
+  }
+  
+  a.navbar-brand {
+    margin-left:10px;
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-image: url(../img/logo.png); /*TEMPORARY. im not sure how to work with that svg - its a wall of text..*/
+    /*background-image: url(../img/logo2.png); /*tried inverted version. unsure which is better (<-this png is Very low quality)*/
+    text-indent: -999em;
+  }
+  
+  .navbar {
+    background-color: var(--primary_green);
+    text-transform: uppercase;
+  }
+  
+  .btn {
+    background-color: var(--primary_blue);
+    color: var(--light_green);
+    margin-right: 10px;
+    border-color: #00244F;
+    border-width: 2px;
+    padding: 8px 20px 8px 20px;
+    font-size: larger;
+    letter-spacing: .2rem;
+  }
+  
+  .card {
+    --bs-card-bg: var(--medium_green);
+  }
+  

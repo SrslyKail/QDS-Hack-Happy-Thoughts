@@ -19,10 +19,47 @@ function ajaxGET(url, callback) {
       console.log(this.status);
     }
   }
-  xhr.open("GET", url); // localhost:8000/weekdays?format=html
+  xhr.open("GET", url);
   xhr.send();
 
 }
+
+//default setup to be clickable
+document.querySelectorAll(".clear").forEach(function (currentElement, currentIndex, listObj) {
+
+  //console.log(currentElement, currentIndex, listObj);
+  currentElement.addEventListener("click", function (e) {
+      //console.log(e);
+      for (let i = 0; i < this.parentNode.childNodes.length; i++) {
+          if (this.parentNode.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+              if (this.parentNode.childNodes[i].getAttribute("class") == "ajax-stuff") {
+                  this.parentNode.childNodes[i].innerHTML = "";
+                  break;
+              }
+          }
+      }
+  });
+});
+
+//loads navbar with dom
+if (document.readyState !== 'loading') {
+  console.log('document is already ready');
+  ajaxGET("/navbar", function (data) {
+  document.getElementById("navbarPlaceholder").innerHTML = data;
+  document.addEventListener('click', function (event) {event.preventDefault();});
+      
+  });
+} else {
+  document.addEventListener('DOMContentLoaded', function () {
+      console.log('document was not ready');
+      ajaxGET("/navbar", function (data) {
+     
+      document.getElementById("navbarPlaceholder").innerHTML = data;
+      document.addEventListener('click', function (event) {event.preventDefault();});
+      });
+  });
+}
+
 
 // Setup for each card to be clickable
 document.querySelectorAll(".card").forEach(function (currentElement, currentIndex, listObj) {
@@ -102,4 +139,4 @@ function createNewCard(jsonData, img) {
   return card;
 }
 
-getThoughts() //input param is the name of the collection
+getThoughts()

@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>Happy Thoughts</title>
+  <title>Submit Happy Thoughts</title>
   <meta name="Happy Thoughts" content="Happy Thoughts">
 
   <!------------------------>
@@ -33,65 +33,38 @@
   <!-- Sweet Alert -->
   <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="/public/css/style.css">
 
 <body>
   <!-- Nav bar  -->
   <nav id="navbarPlaceholder"></nav>
 
-  <!-- We'll need some js to display rows of cards automatically.-->
-  <div id="cardArea">
-    <!-- <div class="row m-1 justify-content-evenly">
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
+  <body>
+    <body>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-12 col-lg-4 order-2 order-lg-1">
+            <form>
+              <div class="form-group">
+                <label for="postImage">Include a photo?</label>
+                <input type="file" class="form-control-file" id="postImage">
+              </div>
+              <button type="submit" class="btn btn-primary mb-3 mb-lg-0">Share</button>
+            </form>
+          </div>
+          <div class="col-12 col-lg-8 order-1 order-lg-2">
+            <div class="form-group">
+              <label for="postText">Share your thought</label>
+              <textarea class="form-control" id="postText" rows="3" placeholder="Type your happy thoughts here"></textarea>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-    </div>
-    <div class="row m-1 justify-content-evenly">
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-    </div>
-    <div class="row m-1 justify-content-evenly">
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card mx-1 p-2 col">
-        <img src="https://dummyimage.com/600x400/000/fff" class="card-img" alt="...">
-        <div class="card-img-overlay"></div>
-      </div>
-    </div>
-  -->
-  </div>
 </body>
-
 
 <!-- Link to scripts of your own -->
 <script src="/public/js/firebase.js"></script>
 <script src="/public/js/addPost.js"></script>
-<!-- <script>$('#navbarPlaceholder').load('/app/data/navbar.html')</script> -->
 <script src="/public/js/client.js"></script>
 <script>$('#navbarPlaceholder').load('/app/data/navbar.html')</script>
 </html>
