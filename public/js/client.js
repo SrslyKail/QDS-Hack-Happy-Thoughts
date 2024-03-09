@@ -165,12 +165,9 @@ function createNewCard(jsonData, img, thought) {
  */
 function onCardClick(e) {
   let target = e.target;
-  console.log(e.target.classList);
   while (!target.classList.contains("card")){
-    console.log("searching for card")
     target = target.parentNode;
   }
-  console.log(target);
   target.classList.toggle('is-flipped');
 }
 
