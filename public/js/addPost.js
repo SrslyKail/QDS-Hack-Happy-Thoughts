@@ -12,16 +12,11 @@ function ajaxGET(url, callback) {
     xhr.send();
 }
 
-// Load navbar when DOM is ready
-document.addEventListener('DOMContentLoaded', function () {
+
+$(document).ready(function () {
     ajaxGET("/navbar", function (data) {
         document.getElementById("navbarPlaceholder").innerHTML = data;
     });
-});
-
-
-//To handle user interactions and update the rating value
-$(document).ready(function () {
     getUserInfoFromAuth()
 });
 
@@ -38,27 +33,32 @@ firebase.auth().onAuthStateChanged(user => {
 })
 
 // Submit a thought
-function submitThought() {
-    console.log('Submitted');
-    // Define a variable for the collection you want to create in Firestore to populate data
-    var thought = db.collection("thoughts");
-
-    thought.add({   
-        image: 'url', // place holder for a url
-        // thought: document.getElementById('thought').value,   // the text box should include id="comment"
-        user: userName,
-        timeStamp: firebase.firestore.FieldValue.serverTimestamp()
-    })
-        .then(function () {
-            // Provide feedback to the user
-            swal("Thought submitted successfully!");
-        })
-}
-
-// event listener for the submit button
-document.getElementById('share').addEventListener('click', function () {
+$("#thoughtForm").submit(function (event) {
+    event.preventDefault();
     submitThought();
 });
+
+// Submit a thought
+function submitThought() {
+    var thought = $("#thought").val();
+    console.log('Submitted:', thought);
+    db.collection("thoughts").add({
+        image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6", // place holder for a url
+        text: thought,
+        // user: userName,  // not sure why i cannot include userName at the moment
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    })
+        .then(function (docRef) {
+            console.log("Thought submitted with ID: ", docRef.id);
+            // Reset form after submission
+            $("#thought").val('');
+            // Provide feedback to the user
+            //     swal("Thought submitted successfully!");
+        })
+        .catch(function (error) {
+            console.error("Error adding thought: ", error);
+        });
+}
 
 // Obtain the current user name
 function getUserInfoFromAuth() {
@@ -74,3 +74,4 @@ function getUserInfoFromAuth() {
         }
     })
 }
+
