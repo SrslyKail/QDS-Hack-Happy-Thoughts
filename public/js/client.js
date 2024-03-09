@@ -140,6 +140,7 @@ function createNewRow(classNames) {
  */
 function createNewCard(jsonData, img, thought) {
   
+  //create the card structure from JSON
   let card = document.createElement("div");
   let image = document.createElement("img");
   let front = document.createElement("div");
@@ -172,3 +173,16 @@ function onCardClick(e) {
 }
 
 getThoughts()
+
+
+
+document.addEventListener('thoughtsLoaded', function() {
+  let cards = document.querySelectorAll(".card-inner");
+  console.log(cards)
+  for (var i = 0 ; i< cards.length; i++){
+        let card = cards[i]
+        card.addEventListener('click', function(){
+            card.classList.toggle('is-flipped');
+        });
+      }
+});
