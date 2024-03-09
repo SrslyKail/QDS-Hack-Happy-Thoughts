@@ -69,7 +69,7 @@ body {
   .card {
     --bs-card-bg: var(--medium_green);
     border-width: 2px;
-    max-width: 30vw;
+    max-width: 30%;
     height: 170px;
     flex-basis: 30%;
   }
@@ -81,6 +81,11 @@ body {
     transform-style: preserve-3d;
     cursor: pointer;
     position: relative;
+  }
+
+  .card-inner img{
+    width: 100%;
+    height: 100%;
   }
 
   .card-inner.is-flipped {
@@ -96,6 +101,7 @@ body {
   }
 
   .back{
+    text-align: center;
     transform: rotateY(180deg);
   }
 

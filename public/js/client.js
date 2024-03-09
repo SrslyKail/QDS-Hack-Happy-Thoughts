@@ -156,6 +156,7 @@ function createNewRow(classNames) {
  * @returns {HTMLDivElement} a new card
  */
 function createNewCard(jsonData, img, thoughtText) {
+  //create the card structure from JSON
   let card = document.createElement("div");
   let inner = document.createElement('div');
   let front = document.createElement('div');
@@ -184,11 +185,14 @@ getThoughts()
 
 
 document.addEventListener('thoughtsLoaded', function() {
+  //colletcts all cards when they are loaded
   let cards = document.querySelectorAll(".card-inner");
   console.log(cards)
+  //iterates through the cards
   for (var i = 0 ; i< cards.length; i++){
         let card = cards[i]
         card.addEventListener('click', function(){
+            //adds new class to the inner class to flip the card
             card.classList.toggle('is-flipped');
         });
       }
