@@ -50,6 +50,13 @@ app.get("/navbar", function (req, res) {
   });
 });
 
+//gets hamburger
+app.get("/navbar", function (req, res) {
+  let doc = fs.readFileSync("./app/data/hamburger.js", "utf8");
+  res.setHeader("Content-Type", "application/json");
+  res.send(doc);
+});
+
 //Gets a JSON card
 app.get("/cardRow", function(req, res) {
   res.setHeader("Content-Type", "text/html");

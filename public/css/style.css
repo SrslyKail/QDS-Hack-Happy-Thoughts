@@ -11,6 +11,7 @@
 body {
   font-family: "Hind";
   background-color: var(--primary_green);
+  color: #1F4736;
 }
 
 a.navbar-brand {
@@ -47,8 +48,9 @@ a.navbar-brand {
 #intro {
   display: flex;
   flex-direction: column;
-  margin: 10px 30% 10px 30%;
+  margin: 10px 20% 10px 20%;
 }
+
 #intro > .card {
   margin: 0 auto;
 }
@@ -120,7 +122,6 @@ a.navbar-brand {
     background-image: none;
     text-indent: 0;
     font-size:20px;
-    color: #1F4736;
   }
 
   .navbar-toggler {
