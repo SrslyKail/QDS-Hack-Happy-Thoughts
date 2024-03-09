@@ -132,9 +132,10 @@ function createNewRow(classNames) {
 }
 
 /**
- * @param {*} jsonData the Json data used to create the card.
- * @param {*} img the image to put on the card.
- * @param {*} thought the text to put on the card. 
+ * Creates a new flippable card.
+ * @param {Array} jsonData the Json data used to create the card.
+ * @param {String} img the image to put on the card.
+ * @param {String} thought the text to put on the card. 
  * @returns {HTMLDivElement} a new card.
  */
 function createNewCard(jsonData, img, thought) {
