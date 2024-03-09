@@ -1,0 +1,6 @@
+{
+  "row": "row m-1 justify-content-evenly",
+  "card": "card mx-1 p-2 col",
+  "img": "card-img",
+  "cardBody":"card-img-overlay"
+}

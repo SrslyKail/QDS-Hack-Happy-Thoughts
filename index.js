@@ -13,25 +13,18 @@ app.use("/img", express.static("./public/img"));
 
 //Gets the landing page
 app.get("/", function (req, res) {
-  console.log("User requested homepage.");
   let doc = fileSystem.readFileSync("./app/html/index.html", "utf8");
   res.send(doc);
 });
 
 //Gets a JSON card
-
-// app.get("/article", function(req, res) {
-//   let formatOfResponse = req.query["format"];
-//   if (formatOfResponse == "json") {
-//     res.setHeader("Content-Type", "text/html");
-//     res.send(
-//       fileSystem.readFileSync("./app/data/article.json",
-//       "utf8")
-//     );
-//   } else {
-//     res.send({status: "fail", msg: "Wrong format!"});
-//   }
-// });
+app.get("/cardRow", function(req, res) {
+  res.setHeader("Content-Type", "text/html");
+  res.send(
+    fileSystem.readFileSync("./app/data/cardRow.json",
+     "utf8")
+  );
+})
 
 //gets locally stored images.
 app.get("/img", function(req, res) {
