@@ -169,15 +169,16 @@ function createNewCard(jsonData, img) {
   front.append(pic);
   back.append("Helloe");
   inner.append(front,back);
+  inner.addEventListener('click', function(){
+    card = document.querySelector(".card-inner");
+    card.classList.toggle('is-flipped');
+});
   card.append(inner);
 
   card.addEventListener("click", onCardClick);
   return card;
 }
 
-document.addEventListener('click', function(){
-    card = document.querySelector(".card-inner");
-    card.classList.toggle('is-flipped');
-});
+document
 
 getThoughts()
