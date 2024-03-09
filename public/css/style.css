@@ -2,11 +2,16 @@
 
 body {
   font-family: "Hind";
-  font-size: 14pt;
-  margin: 0px;
-  padding: 0px;
 }
 
 :root {
-  --margin_size: minmax(10px, 1vw)
+  --primary_blue: #004777;
+  --primary_teal: #38A3A5;
+  --primary_green: #57CC99;
+  --medium_green: #80ED99;
+  --light_green: #C7F9CC;
+}
+
+.card {
+  --bs-card-bg: var(--primary_green);
 }
