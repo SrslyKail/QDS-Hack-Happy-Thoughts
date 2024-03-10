@@ -133,6 +133,15 @@ a.navbar-brand {
   visibility: hidden;
 }
 
+.fade-in-effect {
+  animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0; }
+  100% { opacity: 1; }  
+}
+
 .heartbeat {
 	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
 	        animation: heartbeat 1.5s ease-in-out infinite both;
