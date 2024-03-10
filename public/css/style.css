@@ -319,7 +319,7 @@ a.navbar-brand {
     flex-basis: 80%;
   }
 
-  .btn {
+  .navbar .btn {
     visibility:hidden;
     margin-right: 0px;
   }
