@@ -49,6 +49,15 @@ function handleSubmit(event) {
     const thoughtText = document.getElementById('thought').value;
     const postImage = document.getElementById('postImage').files[0];
 
+    // Validation checks 
+    if (thoughtText === '') {
+        Swal.fire("Oops!", "Hey, you forgot to share your happy thought! Let's fill it in.", "warning");
+        return;
+    } else if (thoughtText.length > 300) {
+        Swal.fire("Whoa, slow down!", "Your happy thought is amazing, but let's keep it short and sweet, 300 characters or less.", "error");
+        return;
+    }
+
     // Prepare data object
     var data = {
         // TODO: change the default image to something else 
@@ -92,7 +101,7 @@ function addThoughtToFirestore(data) {
         .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);
             // Provide feedback to the user
-            swal("Thought submitted successfully!");
+            Swal.fire("Thought submitted successfully!");
             // Reset form after successful submission
             document.getElementById('thoughtForm').reset();
         })
