@@ -114,10 +114,13 @@ a.navbar-brand {
   backface-visibility: hidden;
 }
 
-
 .back {
   position: absolute;
   transform: rotateY(180deg);
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .heartbeat {

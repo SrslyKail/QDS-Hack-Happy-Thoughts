@@ -206,11 +206,15 @@ document.querySelector("#navbarPlaceholder").addEventListener("click", function 
   });
 });
 
-//listener for the envelope click
-let envelope = document.querySelector('.envelope');
-
-// Add a click event listener to the envelope element
-envelope.addEventListener('click', function() {
-    // Add a class to stop the heartbeat animation
-    this.classList.add('stop-heartbeat');
+$(document).ready(function () {
+  let envelope = document.querySelector('.envelope');
+  // Add a click event listener to the envelope element
+  envelope.addEventListener('click', stopHeartbeat, { once: true });
 });
+
+function stopHeartbeat(){
+  this.classList.add('stop-heartbeat');
+  cardArea.classList.remove('hidden');
+}
+
+
