@@ -20,6 +20,23 @@ function ajaxGET(url, callback) {
   xhr.send();
 }
 
+//default setup to be clickable
+document.querySelectorAll(".clear").forEach(function (currentElement, currentIndex, listObj) {
+
+  //console.log(currentElement, currentIndex, listObj);
+  currentElement.addEventListener("click", function (e) {
+      //console.log(e);
+      for (let i = 0; i < this.parentNode.childNodes.length; i++) {
+          if (this.parentNode.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+              if (this.parentNode.childNodes[i].getAttribute("class") == "ajax-stuff") {
+                  this.parentNode.childNodes[i].innerHTML = "";
+                  break;
+              }
+          }
+      }
+  });
+});
+
 //loads navbar with dom
 if (document.readyState !== 'loading') {
   //console.log('document was ready');
@@ -69,4 +86,46 @@ async function updateModalBody() {
   }
 }
 
+
 updateModalBody();
+		
+
+		
+//navbar links
+		
+document.querySelector("#navbarPlaceholder").addEventListener("mousedown", function (e) {
+		
+  document.querySelector(".nav-item-1").addEventListener('click', function (e) {
+		
+    window.open("./index.html", "_self");
+		
+    //console.log("1 works");
+		
+  })
+		
+  document.querySelector(".nav-item-2").addEventListener('click', function (e) {
+		
+    window.open("/about.html", "_self");
+		
+    //console.log("2 works");
+		
+  })
+		
+  document.querySelector(".nav-item-3").addEventListener('click', function (e) {
+		
+    window.open("/terms.html", "_self");
+		
+    //console.log("3 works");
+		
+  })
+		
+  document.querySelector(".nav-item-4").addEventListener('click', function (e) {
+		
+    window.open("/resources.html", "_self");
+		
+    //console.log("4 works");
+		
+  })
+		
+});
+

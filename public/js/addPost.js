@@ -70,6 +70,7 @@ function handleSubmit(event) {
 
     // If an image is uploaded, upload it to storage and add its URL to data
     if (postImage) {
+        console.log('goes into if')
         const storageRef = firebase.storage().ref();
         const imageRef = storageRef.child('images/' + postImage.name);
 
