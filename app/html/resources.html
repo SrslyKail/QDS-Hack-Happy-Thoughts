@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Happy Thoughts</title>
+    <meta name="Happy Thoughts" content="Happy Thoughts">
+
+    <!------------------------>
+    <!-- Required meta tags -->
+    <!------------------------>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!------------------------------------------>
+    <!-- Bootstrap Library CSS JS CDN go here -->
+    <!------------------------------------------>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <!-- Sweet Alert -->
+    <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+<body>
+    <!-- Nav bar  -->
+    <nav id="navbarPlaceholder"></nav>
+
+    <body>
+        <div class="container mt-5">
+            <h1>Mental Health Crisis Resources</h1>
+            <p>If you're experiencing a crisis or need urgent support, please contact one of the following services:</p>
+
+            <div class="list-group  mb-4">
+                <a href="https://www.phsa.ca/" class="list-group-item list-group-item-action" id="listGroupItem">
+                    <h2 class="mb-1">Provincial Health Services Authority (PHSA)</h2>
+                    <p class="mb-1">PHSA offers a range of mental health support services. Visit their website for more
+                        information.</p>
+                </a>
+                <a href="https://crisiscentre.bc.ca/" class="list-group-item list-group-item-action" id="listGroupItem">
+                    <h2 class="mb-1">Crisis Centre of BC</h2>
+                    <p class="mb-1">Suicide hotline: 1-800-SUICIDE (1-800-784-2433) - Available 24/7, free of charge.
+                    </p>
+                </a>
+
+                <a href="https://www.heretohelp.bc.ca/get-help" class="list-group-item list-group-item-action"
+                    id="listGroupItem">
+                    <h2 class="mb-1">BC Mental Health Support Line</h2>
+                    <p class="mb-1">Heretohelp: 310-6789 - No area code needed, free and available 24/7.</p>
+                </a>
+
+                <a href="https://988.ca/" class="list-group-item list-group-item-action" id="listGroupItem">
+                    <h2 class="mb-1">Canadian Suicide Prevention Crisis Helpline</h2>
+                    <p class="mb-1">Call or text 9-8-8 - Available 24/7 nationwide.</p>
+                </a>
+
+                <a href="https://here2talk.ca/" class="list-group-item list-group-item-action" id="listGroupItem">
+                    <h2 class="mb-1">Here2Talk</h2>
+                    <p>Connects post-secondary students with mental health support. Available 24/7 via app,
+                        phone, and web.
+                        <p>Canada-wide toll-free: 1-877-857-3397</p>
+                        <p> Canada-wide direct: 604-642-5212</p>
+                    </p>
+                </a>
+
+                <a href="https://www.kuu-uscrisisline.com/" class="list-group-item list-group-item-action"
+                    id="listGroupItem">
+                    <h2 class="mb-1">KUU-US Indigenous Crisis Line</h2>
+                    <p>Toll Free: 1-800-588-8717 </p>
+                    <p>- A 24/7 service for Indigenous Peoples in B.C.</p>
+                </a>
+
+                <a href="https://www.youthinbc.com/" class="list-group-item list-group-item-action" id="listGroupItem">
+                    <h2 class="mb-1">Youth in BC</h2>
+                    <p class="mb-1">Online chat is available from Noon to 1 AM in BC and Yukon only for youth 25 and
+                        under, click to chat</p>
+                </a>
+
+                <a href="https://crisiscentrechat.ca/" class="list-group-item list-group-item-action"
+                    id="listGroupItem">
+                    <h2 class="mb-1">Crisis Centre</h2>
+                    <p class="mb-1">Online chat is available from Noon to 1 AM in BC and Yukon, click to chat</p>
+                </a>
+            </div>
+        </div>
+    </body>
+
+
+</body>
+
+
+<!-- Link to scripts of your own -->
+<script src="/public/js/firebase.js"></script>
+<!-- <script src="/public/js/addPost.js"></script> -->
+<script src="/js/navbarLoader.js"></script>
+<script src="/public/js/client.js"></script>
+<script></script>
+
+</html>
