@@ -88,6 +88,9 @@ a.navbar-brand {
   /* comment out to make the image to fill the entire card */
 }
 
+.card-body p {
+font-size: 180%;
+}
 .row {
   --gap: 5vw;
   row-gap: var(--gap);
