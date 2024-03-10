@@ -33,6 +33,10 @@ a.navbar-brand {
   --bs-navbar-toggler-focus-width: none;
 }
 
+.navbar li {
+  cursor: pointer;
+}
+
 .btn {
   background-color: var(--primary_blue);
   color: var(--light_green);
@@ -374,11 +378,10 @@ a.navbar-brand {
 
 @media only screen and (max-width: 990px) {
   .card {
-    max-width: 600px;
+    max-width: 80vw;
     max-height: unset;
     flex-basis: 80%;
   }
-  
 
   .navbar .btn {
     visibility: hidden;
