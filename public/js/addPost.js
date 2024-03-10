@@ -39,7 +39,6 @@ function getUserInfoFromAuth() {
     })
 }
 
-
 const thoughtCollection = db.collection('thoughts');
 const storage = firebase.storage();
 // Function to handle form submission
@@ -102,5 +101,6 @@ function addThoughtToFirestore(data) {
         });
 }
 
+$(document).ready(getUserInfoFromAuth);
 // Event listener for form submission
 document.getElementById('thoughtForm').addEventListener('submit', handleSubmit);
