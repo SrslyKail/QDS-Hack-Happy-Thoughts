@@ -45,13 +45,13 @@ document.querySelector("#navbarPlaceholder").addEventListener("mousemove", funct
     //console.log("hamburger loaded");
     ajaxGET("/hamburger", function (data) {
       let parsedData = JSON.parse(data);
-      let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>Happy Thoughts!</h2></td></tr>";
+      let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>HAPPY THOUGHTS!</h2></td></tr>";
       for (let i = 0; i < parsedData.length; i++) {
         let item = parsedData[i];
         str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
 
       }
-      str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">Submit a Post</a></td></tr></table></div>";
+      str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">SUBMIT A POST</a></td></tr></table></div>";
       document.getElementById("hamburger").innerHTML = str;
       //console.log(str);
     });
