@@ -63,6 +63,7 @@ function handleSubmit(event) {
         // TODO: change the default image to something else 
         image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6",
         text: thoughtText,
+        default: 1,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     };
 
@@ -82,6 +83,7 @@ function handleSubmit(event) {
                 var data = {
                     image: url,
                     text: thoughtText,
+                    default: 0,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 };
                 data.image = url;
