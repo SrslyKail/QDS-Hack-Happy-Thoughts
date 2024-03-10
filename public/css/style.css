@@ -357,6 +357,7 @@ a.navbar-brand {
     max-height: unset;
     flex-basis: 80%;
   }
+  
 
   .navbar .btn {
     visibility: hidden;
@@ -368,14 +369,14 @@ a.navbar-brand {
     padding-top: 10px;
     padding-left: 10px;
     height: 50px;
-    background-image: none;
-    text-indent: 0;
+    text-indent: 50px;
     font-size: 20px;
+    background-size: 50%;
   }
 
   .navbar-toggler {
-    margin-right: -120px;
-    margin-left: auto;
+    margin-right: -52%;
+    margin-left: 22%;
     width: 10%;
     height: 10%;
     border: none;
@@ -383,7 +384,6 @@ a.navbar-brand {
 
   div.hamburger {
     display: inline-block;
-    margin-right: 5px;
     width: 40px;
     height: 40px;
     background-size: 100%;
@@ -393,6 +393,7 @@ a.navbar-brand {
 
   #hamenu {
     margin: 10px;
+    padding: .5rem;
     margin-left: -88%;
     position: absolute;
     background-color: var(--medium_green);
@@ -408,7 +409,7 @@ a.navbar-brand {
     margin-left: 20px;
     margin-bottom: 20px;
     text-align: left;
-    min-width: 100%;
+    min-width: 90%;
   }
 
   #hamenu h2 {
@@ -419,7 +420,7 @@ a.navbar-brand {
 
   #hamenu .btn {
     visibility: visible;
-    min-width: 90%;
+    min-width: 100%;
   }
 
 }
