@@ -67,7 +67,7 @@ a.navbar-brand {
   height: 35%;
 }
 
-.filters{
+.filters {
   display: flex;
   gap: 15px;
   justify-content: center;
@@ -76,13 +76,19 @@ a.navbar-brand {
   font-family: "Montserrat";
 }
 
-.filters{
+.filters {
   display: flex;
   gap: 15px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   font-family: "Montserrat";
+}
+
+.filter-heading,
+.filter-buttons {
+  display: flex;
+  align-items: center;
 }
 
 #about {
@@ -101,6 +107,10 @@ a.navbar-brand {
   justify-content: center;
   flex-direction: row;
   /* comment out to make the image to fill the entire card */
+}
+
+.card-body p {
+  font-size: 180%;
 }
 
 .row {
@@ -442,22 +452,41 @@ a.navbar-brand {
     z-index: 1;
   }
 
-  #hamenu table {
-    margin-left: 20px;
-    margin-bottom: 20px;
-    text-align: left;
-    min-width: 90%;
+  .filters {
+    text-align: center;
   }
 
-  #hamenu h2 {
-    margin-top: 20px;
-    color: var(--primary_blue);
-    font-weight: bold;
+  .filter .btn {
+    width: 100%;
+    margin: 5px 0;
+    padding: 15px;
+    font-size: 18px;
   }
 
-  #hamenu .btn {
-    visibility: visible;
-    min-width: 100%;
+  .filters {
+    flex-direction: column;
   }
+}
 
+
+.filters h3 {
+  font-size: 16px;
+}
+
+#hamenu table {
+  margin-left: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  min-width: 90%;
+}
+
+#hamenu h2 {
+  margin-top: 20px;
+  color: var(--primary_blue);
+  font-weight: bold;
+}
+
+#hamenu .btn {
+  visibility: visible;
+  min-width: 100%;
 }
