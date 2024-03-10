@@ -205,3 +205,12 @@ document.querySelector("#navbarPlaceholder").addEventListener("click", function 
           console.log(str);
   });
 });
+
+//listener for the envelope click
+let envelope = document.querySelector('.envelope');
+
+// Add a click event listener to the envelope element
+envelope.addEventListener('click', function() {
+    // Add a class to stop the heartbeat animation
+    this.classList.add('stop-heartbeat');
+});
