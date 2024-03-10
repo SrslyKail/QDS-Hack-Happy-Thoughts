@@ -41,12 +41,10 @@ function getThoughts() {
             }
           }
           let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
 
           //console.log(thoughtText);
 
-          var card = createNewCard(cardJson, image, thoughtText);
+          var card = createNewCard(cardJson, thought);
           currentRow.append(card);
           column++;
         });
@@ -81,28 +79,38 @@ function createNewRow(classNames) {
  * @param {String} thought the text to put on the card. 
  * @returns {HTMLDivElement} a new card.
  */
-function createNewCard(jsonData, img, thought) {
+function createNewCard(jsonData, thought) {
 
   //create the card structure from JSON
   let card = document.createElement("div");
   let image = document.createElement("img");
   let front = document.createElement("div");
   let back = document.createElement("div");
+  let img = thought.data().image;
+  let thoughtText = thought.data().text;
 
   card.className = jsonData.card;
   image.src = img;
   image.className = jsonData.image;
   front.className = jsonData.front;
   back.className = jsonData.back;
-  let text = thought;
-  if (text.length > charLimit) {
-    text = text.substring(0, charLimit) + '\u2026';
-  }
-  back.innerHTML = `<p>${text}</p>`;
-  front.append(image);
-  card.append(front, back);
 
+  if (thoughtText.length > charLimit) {
+    thoughtText = thoughtText.substring(0, charLimit) + '\u2026';
+  }
+  thoughtText = `<p>${thoughtText}</p>`;
+  //if its a default image
+  if (thought.data().default == 1){
+    //Put the text on the front
+    back.append(image);
+    front.innerHTML = thoughtText;
+  } else {
+    back.innerHTML = thoughtText;
+    front.append(image);
+  }
+  card.append(front, back);
   card.addEventListener("click", onCardClick);
+  
   return card;
 }
 
