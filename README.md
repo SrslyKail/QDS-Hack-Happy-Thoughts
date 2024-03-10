@@ -28,7 +28,7 @@ Happy-Thoughts is a web application that aims to provide a space for students to
     `npm i`
 4. Start the server:
 
-    `nodemon index.js`
+    `node index.js`
 
 
 ## Features
