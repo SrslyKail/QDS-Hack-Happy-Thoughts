@@ -54,203 +54,272 @@ textFilter.addEventListener("click", function (){
  * Gets thoughts from the server to be displayed and filters them
  * I know, looks terrible, but it is what it is
  */
-function getThoughts(filter = null) {
-  //clear previous cards from the card area
-  let cardArea = document.getElementById("cardArea");
-  cardArea.innerHTML="";
-  //iterators for rows and columns;
-  let row = 0;
-  let column = 0;
-  //if custom image is a priority, filters cards displaying cards with the custom images first
-  if (filter=='image'){
-    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
-      ajaxGET("/cardRow", function (jsonData) {
-        //console.log("filtering");
-        let cardJson = JSON.parse(jsonData);
-        if (rowList.length == 0) {
-          createNewRow(cardJson.row);
-        }
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
-          var card = createNewCard(cardJson, image, thoughtText);
-          currentRow.append(card);
-          column++;
-        });
-      });
-    });
-    //loads non-prioritized imgs 
-    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
-      ajaxGET("/cardRow", function (jsonData) {
-        //console.log("filtering");
-        let cardJson = JSON.parse(jsonData);
-        if (rowList.length == 0) {
-          createNewRow(cardJson.row);
-        }
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
-          var card = createNewCard(cardJson, image, thoughtText);
-          currentRow.append(card);
-          column++;
-        });
-      });
-    });
-    //if default image is a priority, filters cards displaying cards with the default images first
-  } else if (filter=='text'){
-    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
-      ajaxGET("/cardRow", function (jsonData) {
-        //console.log("filtering");
-        let cardJson = JSON.parse(jsonData);
-        if (rowList.length == 0) {
-          createNewRow(cardJson.row);
-        }
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
-          var card = createNewCard(cardJson, image, thoughtText);
-          currentRow.append(card);
-          column++;
-        });
-      });
-    });
-    //loads non-prioritized imgs
-    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
-      ajaxGET("/cardRow", function (jsonData) {
-        //console.log("filtering");
-        let cardJson = JSON.parse(jsonData);
-        if (rowList.length == 0) {
-          createNewRow(cardJson.row);
-        }
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
-          var card = createNewCard(cardJson, image, thoughtText);
-          currentRow.append(card);
-          column++;
-        });
-      });
-    });  
-  } 
-  else{
-    //no filters applied
-    db.collection("thoughts").get()  
-    .then((allThoughts) => {
-      ajaxGET("/cardRow", function (jsonData) {
-        //console.log("not filtering");
-        let cardJson = JSON.parse(jsonData);
-        //console.log("Json data:", cardJson);
+// function getThoughts(filter = null) {
+//   //clear previous cards from the card area
+//   let cardArea = document.getElementById("cardArea");
+//   cardArea.innerHTML="";
+//   //iterators for rows and columns;
+//   let row = 0;
+//   let column = 0;
+//   //if custom image is a priority, filters cards displaying cards with the custom images first
+//   if (filter=='image'){
+//     db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+//       ajaxGET("/cardRow", function (jsonData) {
+//         //console.log("filtering");
+//         const thoughtData = []; 
+//       allThoughts.forEach((thought) => {
+//         thoughtData.push(thought); 
+//       });
 
-        //Need an iterator so we dont have more than 3 per row!
-        //let column = 0;
-        //To keep track of which row we're on
-        //let row = 0;
+//       ajaxGET("/cardRow", function (jsonData) {
+//         let cardJson = JSON.parse(jsonData);
 
-        //this deals with initializing the page
-        if (rowList.length == 0) {
-          createNewRow(cardJson.row);
-        }
-        //Currently it'll just read everything in the database
-        //We could modify it later to only grab X amount.
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
-          let image = thought.data().image;
-          let thoughtText = thought.data().text;
+//         if (rowList.length == 0) {
+//           createNewRow(cardJson.row);
+//         }
 
-          //console.log(thoughtText);
-          var card = createNewCard(cardJson, image, thoughtText);
-          currentRow.append(card);
-          column++;
-        });
-      });
-    });
-  }
+//         let currentRow = rowList[rowList.length - 1]; 
+
+//         let column = currentRow.children.length; 
+
+//         thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+//           if (column >= 3) { 
+//             createNewRow(cardJson.row);
+//             currentRow = rowList[rowList.length - 1]; 
+//             column = 0; 
+//           }
+//           var card = createNewCard(cardJson, thought);
+//           currentRow.append(card);
+//           column++;
+//         });
+
+//         // Add scroll event listener for infinite scrolling
+//         window.addEventListener('scroll', function () {
+//           if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//             // Load more images
+//             imagesLoaded += 6; 
+//             thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+//               if (column >= 3) { 
+//                 createNewRow(cardJson.row);
+//                 currentRow = rowList[rowList.length - 1]; 
+//                 column = 0; 
+//               }
+//               var card = createNewCard(cardJson, thought);
+//               currentRow.append(card);
+//               column++;
+//             });
+//           }
+//         });
+//       });
+//     });
+//     });
+//     //loads non-prioritized imgs 
+//     db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+//       ajaxGET("/cardRow", function (jsonData) {
+//         const thoughtData = []; 
+//       allThoughts.forEach((thought) => {
+//         thoughtData.push(thought); 
+//       });
+
+//       ajaxGET("/cardRow", function (jsonData) {
+//         let cardJson = JSON.parse(jsonData);
+
+//         if (rowList.length == 0) {
+//           createNewRow(cardJson.row);
+//         }
+
+//         let currentRow = rowList[rowList.length - 1]; 
+
+//         let column = currentRow.children.length; 
+
+//         thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+//           if (column >= 3) { 
+//             createNewRow(cardJson.row);
+//             currentRow = rowList[rowList.length - 1]; 
+//             column = 0; 
+//           }
+//           var card = createNewCard(cardJson, thought);
+//           currentRow.append(card);
+//           column++;
+//         });
+
+//         // Add scroll event listener for infinite scrolling
+//         window.addEventListener('scroll', function () {
+//           if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//             // Load more images
+//             imagesLoaded += 6; 
+//             thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+//               if (column >= 3) { 
+//                 createNewRow(cardJson.row);
+//                 currentRow = rowList[rowList.length - 1]; 
+//                 column = 0; 
+//               }
+//               var card = createNewCard(cardJson, thought);
+//               currentRow.append(card);
+//               column++;
+//             });
+//           }
+//         });
+//       });
+//     });
+//     });
+//     //if default image is a priority, filters cards displaying cards with the default images first
+//   } else if (filter=='text'){
+//     db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+//       ajaxGET("/cardRow", function (jsonData) {
+//         const thoughtData = []; 
+//       allThoughts.forEach((thought) => {
+//         thoughtData.push(thought); 
+//       });
+
+//       ajaxGET("/cardRow", function (jsonData) {
+//         let cardJson = JSON.parse(jsonData);
+
+//         if (rowList.length == 0) {
+//           createNewRow(cardJson.row);
+//         }
+
+//         let currentRow = rowList[rowList.length - 1]; 
+
+//         let column = currentRow.children.length; 
+
+//         thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+//           if (column >= 3) { 
+//             createNewRow(cardJson.row);
+//             currentRow = rowList[rowList.length - 1]; 
+//             column = 0; 
+//           }
+//           var card = createNewCard(cardJson, thought);
+//           currentRow.append(card);
+//           column++;
+//         });
+
+//         // Add scroll event listener for infinite scrolling
+//         window.addEventListener('scroll', function () {
+//           if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//             // Load more images
+//             imagesLoaded += 6; 
+//             thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+//               if (column >= 3) { 
+//                 createNewRow(cardJson.row);
+//                 currentRow = rowList[rowList.length - 1]; 
+//                 column = 0; 
+//               }
+//               var card = createNewCard(cardJson, thought);
+//               currentRow.append(card);
+//               column++;
+//             });
+//           }
+//         });
+//       });
+//     });
+//     });
+//     //loads non-prioritized imgs
+//     db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+//       ajaxGET("/cardRow", function (jsonData) {
+//         const thoughtData = []; 
+//       allThoughts.forEach((thought) => {
+//         thoughtData.push(thought); 
+//       });
+
+//       ajaxGET("/cardRow", function (jsonData) {
+//         let cardJson = JSON.parse(jsonData);
+
+//         if (rowList.length == 0) {
+//           createNewRow(cardJson.row);
+//         }
+
+//         let currentRow = rowList[rowList.length - 1]; 
+
+//         let column = currentRow.children.length; 
+
+//         thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+//           if (column >= 3) { 
+//             createNewRow(cardJson.row);
+//             currentRow = rowList[rowList.length - 1]; 
+//             column = 0; 
+//           }
+//           var card = createNewCard(cardJson, thought);
+//           currentRow.append(card);
+//           column++;
+//         });
+
+//         // Add scroll event listener for infinite scrolling
+//         window.addEventListener('scroll', function () {
+//           if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//             // Load more images
+//             imagesLoaded += 6; 
+//             thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+//               if (column >= 3) { 
+//                 createNewRow(cardJson.row);
+//                 currentRow = rowList[rowList.length - 1]; 
+//                 column = 0; 
+//               }
+//               var card = createNewCard(cardJson, thought);
+//               currentRow.append(card);
+//               column++;
+//             });
+//           }
+//         });
+//       });
+//     });
+//     });  
+//   } 
+//   else{
+//     //no filters applied
+//     db.collection("thoughts").get()  
+//     .then((allThoughts) => {
+//       ajaxGET("/cardRow", function (jsonData) {
+//         const thoughtData = []; 
+//         allThoughts.forEach((thought) => {
+//           thoughtData.push(thought); 
+//         });
   
-}
+//         ajaxGET("/cardRow", function (jsonData) {
+//           let cardJson = JSON.parse(jsonData);
+  
+//           if (rowList.length == 0) {
+//             createNewRow(cardJson.row);
+//           }
+  
+//           let currentRow = rowList[rowList.length - 1]; 
+  
+//           let column = currentRow.children.length; 
+  
+//           thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+//             if (column >= 3) { 
+//               createNewRow(cardJson.row);
+//               currentRow = rowList[rowList.length - 1]; 
+//               column = 0; 
+//             }
+//             var card = createNewCard(cardJson, thought);
+//             currentRow.append(card);
+//             column++;
+//           });
+  
+//           // Add scroll event listener for infinite scrolling
+//           window.addEventListener('scroll', function () {
+//             if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+//               // Load more images
+//               imagesLoaded += 6; 
+//               thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+//                 if (column >= 3) { 
+//                   createNewRow(cardJson.row);
+//                   currentRow = rowList[rowList.length - 1]; 
+//                   column = 0; 
+//                 }
+//                 var card = createNewCard(cardJson, thought);
+//                 currentRow.append(card);
+//                 column++;
+//               });
+//             }
+//           });
+//         });
+//       });
+//     });
+//   }
+  
+// }
 
 function createNewRow(classNames) {
   let div = document.createElement("div");
@@ -303,7 +372,7 @@ function onCardClick(e) {
   target.classList.toggle('is-flipped');
 }
 
-getThoughts()
+//getThoughts()
 
 
 
