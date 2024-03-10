@@ -30,15 +30,15 @@ document.querySelectorAll(".clear").forEach(function (currentElement, currentInd
 
   //console.log(currentElement, currentIndex, listObj);
   currentElement.addEventListener("click", function (e) {
-      //console.log(e);
-      for (let i = 0; i < this.parentNode.childNodes.length; i++) {
-          if (this.parentNode.childNodes[i].nodeType == Node.ELEMENT_NODE) {
-              if (this.parentNode.childNodes[i].getAttribute("class") == "ajax-stuff") {
-                  this.parentNode.childNodes[i].innerHTML = "";
-                  break;
-              }
-          }
+    //console.log(e);
+    for (let i = 0; i < this.parentNode.childNodes.length; i++) {
+      if (this.parentNode.childNodes[i].nodeType == Node.ELEMENT_NODE) {
+        if (this.parentNode.childNodes[i].getAttribute("class") == "ajax-stuff") {
+          this.parentNode.childNodes[i].innerHTML = "";
+          break;
+        }
       }
+    }
   });
 });
 
@@ -46,18 +46,18 @@ document.querySelectorAll(".clear").forEach(function (currentElement, currentInd
 if (document.readyState !== 'loading') {
   //console.log('document was ready');
   ajaxGET("/navbar", function (data) {
-  document.getElementById("navbarPlaceholder").innerHTML = data;
-  document.addEventListener('click', function (event) {event.preventDefault();});
-      
+    document.getElementById("navbarPlaceholder").innerHTML = data;
+    document.addEventListener('click', function (event) { event.preventDefault(); });
+
   });
 } else {
   document.addEventListener('DOMContentLoaded', function () {
-      //console.log('document was not ready');
-      ajaxGET("/navbar", function (data) {
-     
+    //console.log('document was not ready');
+    ajaxGET("/navbar", function (data) {
+
       document.getElementById("navbarPlaceholder").innerHTML = data;
-      document.addEventListener('click', function (event) {event.preventDefault();});
-      });
+      document.addEventListener('click', function (event) { event.preventDefault(); });
+    });
   });
 }
 
@@ -76,7 +76,7 @@ function getThoughts() {
         let column = 0;
         //To keep track of which row we're on
         let row = 0;
-        
+
         //this deals with initializing the page
         if (rowList.length == 0) {
           createNewRow(cardJson.row);
@@ -93,9 +93,9 @@ function getThoughts() {
               createNewRow(cardJson.row);
             }
           }
-          while (rowList[row].children.length >= 3){ // If the row if already full
+          while (rowList[row].children.length >= 3) { // If the row if already full
             row++;
-            if (row >= rowList.length){ // Check if we need to make a new row
+            if (row >= rowList.length) { // Check if we need to make a new row
               createNewRow(cardJson.row);
               break;
             }
@@ -103,9 +103,9 @@ function getThoughts() {
           let currentRow = rowList[row];
           let image = thought.data().image;
           let thoughtText = thought.data().text;
-          
+
           //console.log(thoughtText);
-          
+
           var card = createNewCard(cardJson, image, thoughtText);
           currentRow.append(card);
           column++;
@@ -142,7 +142,7 @@ function createNewRow(classNames) {
  * @returns {HTMLDivElement} a new card.
  */
 function createNewCard(jsonData, img, thought) {
-  
+
   //create the card structure from JSON
   let card = document.createElement("div");
   let image = document.createElement("img");
@@ -173,7 +173,7 @@ function createNewCard(jsonData, img, thought) {
  */
 function onCardClick(e) {
   let target = e.target;
-  while (!target.classList.contains("card")){
+  while (!target.classList.contains("card")) {
     target = target.parentNode;
   }
   target.classList.toggle('is-flipped');
@@ -183,35 +183,44 @@ getThoughts()
 
 
 
-document.addEventListener('thoughtsLoaded', function() {
+document.addEventListener('thoughtsLoaded', function () {
   let cards = document.querySelectorAll(".card-inner");
   console.log(cards)
-  for (var i = 0 ; i< cards.length; i++){
-        let card = cards[i]
-        card.addEventListener('click', function(){
-            card.classList.toggle('is-flipped');
-        });
-      }
+  for (var i = 0; i < cards.length; i++) {
+    let card = cards[i]
+    card.addEventListener('click', function () {
+      card.classList.toggle('is-flipped');
+    });
+  }
 });
 
 //loads hamburger menu on click
 document.querySelector("#navbarPlaceholder").addEventListener("mousemove", function (e) {
-  document.getElementById("hamburger").addEventListener("click", function (e){
+  document.getElementById("hamburger").addEventListener("click", function (e) {
     //console.log("hamburger loaded");
     ajaxGET("/hamburger", function (data) {
       let parsedData = JSON.parse(data);
-          let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>Happy Thoughts!</h2></td></tr>";
-          for(let i = 0; i < parsedData.length; i++) {
-              let item = parsedData[i];
-              str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
-                  
-          }
-          str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">Submit a Post</a></td></tr></table></div>";
-          document.getElementById("hamburger").innerHTML = str;
-          //console.log(str);
-  });
+      let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>Happy Thoughts!</h2></td></tr>";
+      for (let i = 0; i < parsedData.length; i++) {
+        let item = parsedData[i];
+        str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
+
+      }
+      str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">Submit a Post</a></td></tr></table></div>";
+      document.getElementById("hamburger").innerHTML = str;
+      //console.log(str);
+    });
   })
 });
+
+//hide the hamburger menu when clicked outside 
+document.body.addEventListener("click", function (e) {
+  if (!e.target.closest("#hamburger")) {
+    // If the click did not occur inside the hamburger menu, hide it
+    document.getElementById("hamburger").innerHTML = "";
+  }
+});
+
 
 $(document).ready(function () {
   let envelope = document.querySelector('.envelope');
@@ -219,12 +228,12 @@ $(document).ready(function () {
   envelope.addEventListener('click', stopHeartbeat, { once: true });
 });
 
-function stopHeartbeat(){
+function stopHeartbeat() {
   this.classList.remove('heartbeat');
   //cardArea.classList.remove('hidden');
   //Get the modal close button and set it to delete itself after we close it.
   let modalFooter = document.getElementsByClassName("modal-footer")[0].children[0];
-  modalFooter.addEventListener("click", function() {
+  modalFooter.addEventListener("click", function () {
     let intro = document.getElementById("intro");
     intro.remove();
     let hiddenElements = Array.from(document.getElementsByClassName('hidden'));
