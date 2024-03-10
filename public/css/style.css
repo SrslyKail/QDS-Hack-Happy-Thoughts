@@ -54,41 +54,15 @@ a.navbar-brand {
   letter-spacing: .2rem;
 }
 
-
 .envelope{
   margin-left:35% ;
   width: 35%;
   height: 35%;
 }
 
-.row {
-  row-gap: 5vw;
-}
-
-#intro {
+#cardArea * {
   display: flex;
-  flex-direction: column;
-  margin: 10px 20% 10px 20%;
-}
-
-#intro > .card {
-  margin: 0 auto;
-}
-
-#intro #description {
-  text-align: center;
-  margin: 15px auto 15px auto;
-}
-
-#intro input[type=text] {
-  padding: 6px;
-  margin-bottom: 5%;
-  font-size: 17px;
-  border-width: 2px;
-  border-style: solid;
-  width: 100%;
-  border-color: var(--primary_teal);
-  text-indent: 5px;
+  flex-direction: row;
 }
 
 .row {
@@ -109,9 +83,6 @@ a.navbar-brand {
   position: relative;
 }
 
-.card * {
-  display: flex;
-}
 
 .card.is-flipped {
   transform: rotateY(180deg);
@@ -139,6 +110,32 @@ a.navbar-brand {
 @keyframes fadeIn {
   0% {opacity: 0; }
   100% { opacity: 1; }  
+}
+
+#intro {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 20% 10px 20%;
+}
+
+#intro > .card {
+  margin: 0 auto;
+}
+
+#intro #description {
+  text-align: center;
+  margin: 15px auto 15px auto;
+}
+
+#intro input[type=text] {
+  padding: 6px;
+  margin-bottom: 5%;
+  font-size: 17px;
+  border-width: 2px;
+  border-style: solid;
+  width: 100%;
+  border-color: var(--primary_teal);
+  text-indent: 5px;
 }
 
 .heartbeat {
