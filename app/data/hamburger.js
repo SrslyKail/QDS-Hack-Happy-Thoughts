@@ -1,14 +1,14 @@
 [
     {
-        "item": "Archive"
+        "item": "ARCHIVE"
     },
     {
-        "item": "About"
+        "item": "ABOUT"
     },
     {
-        "item": "Terms"
+        "item": "TERMS"
     },
     {
-        "item": "Resources"
+        "item": "RESOURCES"
     }
 ]
