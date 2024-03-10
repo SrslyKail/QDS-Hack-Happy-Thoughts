@@ -6,10 +6,19 @@ let imagesLoaded = 6;
 /**
  * Gets thoughts from the server to be displayed
  */
-function getThoughts() {
-  db.collection("thoughts").get() 
-    .then((allThoughts) => {
-      const thoughtData = []; 
+function getThoughts(filter = null) {
+  //clear previous cards from the card area
+  let cardArea = document.getElementById("cardArea");
+  cardArea.innerHTML="";
+  //iterators for rows and columns;
+  let row = 0;
+  let column = 0;
+  //if custom image is a priority, filters cards displaying cards with the custom images first
+  if (filter=='image'){
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        //console.log("filtering");
+        const thoughtData = []; 
       allThoughts.forEach((thought) => {
         thoughtData.push(thought); 
       });
@@ -55,8 +64,214 @@ function getThoughts() {
         });
       });
     });
-}
+    });
+    //loads non-prioritized imgs 
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        const thoughtData = []; 
+      allThoughts.forEach((thought) => {
+        thoughtData.push(thought); 
+      });
 
+      ajaxGET("/cardRow", function (jsonData) {
+        let cardJson = JSON.parse(jsonData);
+
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+
+        let currentRow = rowList[rowList.length - 1]; 
+
+        let column = currentRow.children.length; 
+
+        thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+          if (column >= 3) { 
+            createNewRow(cardJson.row);
+            currentRow = rowList[rowList.length - 1]; 
+            column = 0; 
+          }
+          var card = createNewCard(cardJson, thought);
+          currentRow.append(card);
+          column++;
+        });
+
+        // Add scroll event listener for infinite scrolling
+        window.addEventListener('scroll', function () {
+          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // Load more images
+            imagesLoaded += 6; 
+            thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+              if (column >= 3) { 
+                createNewRow(cardJson.row);
+                currentRow = rowList[rowList.length - 1]; 
+                column = 0; 
+              }
+              var card = createNewCard(cardJson, thought);
+              currentRow.append(card);
+              column++;
+            });
+          }
+        });
+      });
+    });
+    });
+    //if default image is a priority, filters cards displaying cards with the default images first
+  } else if (filter=='text'){
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        const thoughtData = []; 
+      allThoughts.forEach((thought) => {
+        thoughtData.push(thought); 
+      });
+
+      ajaxGET("/cardRow", function (jsonData) {
+        let cardJson = JSON.parse(jsonData);
+
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+
+        let currentRow = rowList[rowList.length - 1]; 
+
+        let column = currentRow.children.length; 
+
+        thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+          if (column >= 3) { 
+            createNewRow(cardJson.row);
+            currentRow = rowList[rowList.length - 1]; 
+            column = 0; 
+          }
+          var card = createNewCard(cardJson, thought);
+          currentRow.append(card);
+          column++;
+        });
+
+        // Add scroll event listener for infinite scrolling
+        window.addEventListener('scroll', function () {
+          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // Load more images
+            imagesLoaded += 6; 
+            thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+              if (column >= 3) { 
+                createNewRow(cardJson.row);
+                currentRow = rowList[rowList.length - 1]; 
+                column = 0; 
+              }
+              var card = createNewCard(cardJson, thought);
+              currentRow.append(card);
+              column++;
+            });
+          }
+        });
+      });
+    });
+    });
+    //loads non-prioritized imgs
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        const thoughtData = []; 
+      allThoughts.forEach((thought) => {
+        thoughtData.push(thought); 
+      });
+
+      ajaxGET("/cardRow", function (jsonData) {
+        let cardJson = JSON.parse(jsonData);
+
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+
+        let currentRow = rowList[rowList.length - 1]; 
+
+        let column = currentRow.children.length; 
+
+        thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+          if (column >= 3) { 
+            createNewRow(cardJson.row);
+            currentRow = rowList[rowList.length - 1]; 
+            column = 0; 
+          }
+          var card = createNewCard(cardJson, thought);
+          currentRow.append(card);
+          column++;
+        });
+
+        // Add scroll event listener for infinite scrolling
+        window.addEventListener('scroll', function () {
+          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // Load more images
+            imagesLoaded += 6; 
+            thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+              if (column >= 3) { 
+                createNewRow(cardJson.row);
+                currentRow = rowList[rowList.length - 1]; 
+                column = 0; 
+              }
+              var card = createNewCard(cardJson, thought);
+              currentRow.append(card);
+              column++;
+            });
+          }
+        });
+      });
+    });
+    });  
+  } 
+  else{
+    //no filters applied
+    db.collection("thoughts").get()  
+    .then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        const thoughtData = []; 
+        allThoughts.forEach((thought) => {
+          thoughtData.push(thought); 
+        });
+  
+        ajaxGET("/cardRow", function (jsonData) {
+          let cardJson = JSON.parse(jsonData);
+  
+          if (rowList.length == 0) {
+            createNewRow(cardJson.row);
+          }
+  
+          let currentRow = rowList[rowList.length - 1]; 
+  
+          let column = currentRow.children.length; 
+  
+          thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+            if (column >= 3) { 
+              createNewRow(cardJson.row);
+              currentRow = rowList[rowList.length - 1]; 
+              column = 0; 
+            }
+            var card = createNewCard(cardJson, thought);
+            currentRow.append(card);
+            column++;
+          });
+  
+          // Add scroll event listener for infinite scrolling
+          window.addEventListener('scroll', function () {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+              // Load more images
+              imagesLoaded += 6; 
+              thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+                if (column >= 3) { 
+                  createNewRow(cardJson.row);
+                  currentRow = rowList[rowList.length - 1]; 
+                  column = 0; 
+                }
+                var card = createNewCard(cardJson, thought);
+                currentRow.append(card);
+                column++;
+              });
+            }
+          });
+        });
+      });
+    });
+  }
+  
+}
 
 function createNewRow(classNames) {
   let div = document.createElement("div");
