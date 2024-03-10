@@ -6,7 +6,7 @@
 <img src="https://img.shields.io/badge/HTML5-DD4B25" alt="HTML5"> <img src="https://img.shields.io/badge/JavaScript-EBD54D" alt="JS"> <img src="https://img.shields.io/badge/Node.js-6FA660" alt="Node.js"> <img src="https://img.shields.io/badge/CSS3-2862E9" alt="CSS3">
 
 ## Summary
-Happy-Thoughts is a web application designed to empower students by providing a space for them to anonymously share inspiring thoughts, experiences, or images with their peers. The aim of the app is to foster a positive and supportive community where students can uplift each other and find motivation during their academic journey.
+Happy-Thoughts is a web application that aims to provide a space for students to anonymously share inspiring thoughts, experiences, or images with their peers. We hope to help them get out of an echo-chamber of worries, that our minds oftentimes are, and see how much happiness can be found in the little things in life. Posts are submitted anonymously from students in British Columbia (for now). All texts and images are stored in a Firebase-hosted database.
 
 ## Technologies Used
 
