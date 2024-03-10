@@ -17,36 +17,48 @@ app.use(express.static('app/html'));
 app.get("/", function (req, res) {
   let doc = fileSystem.readFileSync("./app/html/index.html", "utf8", (err, data) => {
     if (err) {
-        console.error(err);
-        res.status(500).send("server error");
-        return;
+      console.error(err);
+      res.status(500).send("server error");
+      return;
     }
     res.send(data);
-});
+  });
 });
 
 //Redirect to submit page
 app.get('/SubmitThought', (req, res) => {
   let doc = fileSystem.readFileSync("./app/html/SubmitThought.html", (err, data) => {
     if (err) {
-        console.error(err);
-        res.status(500).send("server error");
-        return;
+      console.error(err);
+      res.status(500).send("server error");
+      return;
     }
     res.send(data);
+  });
 });
+
+//Redirect to submit page
+app.get('/resources', (req, res) => {
+  let doc = fileSystem.readFileSync("./app/html/resources.html", (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("server error");
+      return;
+    }
+    res.send(data);
+  });
 });
 
 //gets navbar
 app.get("/navbar", function (req, res) {
   res.setHeader("Content-Type", "text/html");
   fileSystem.readFile("./app/data/navbar.html", "utf8", (err, data) => {
-      if (err) {
-          console.error(err);
-          res.status(500).send("server error");
-          return;
-      }
-      res.send(data);
+    if (err) {
+      console.error(err);
+      res.status(500).send("server error");
+      return;
+    }
+    res.send(data);
   });
 });
 
@@ -58,16 +70,16 @@ app.get("/hamburger", function (req, res) {
 });
 
 //Gets a JSON card
-app.get("/cardRow", function(req, res) {
+app.get("/cardRow", function (req, res) {
   res.setHeader("Content-Type", "text/html");
   res.send(
     fileSystem.readFileSync("./app/data/cardRow.json",
-     "utf8")
+      "utf8")
   );
 })
 
 //gets locally stored images.
-app.get("/img", function(req, res) {
+app.get("/img", function (req, res) {
   let requestFileName = req.query["name"].toLowerCase();
   let files = fileSystem.readdirSync("./public/img");
   for (i in files) {

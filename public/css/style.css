@@ -97,10 +97,6 @@ a.navbar-brand {
   position: relative;
 }
 
-.stop-heartbeat {
-  animation: none !important;
-}
-
 .card * {
   display: flex;
 }
@@ -126,6 +122,11 @@ a.navbar-brand {
 .heartbeat {
 	-webkit-animation: heartbeat 1.5s ease-in-out infinite both;
 	        animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+#listGroupItem {
+  margin-bottom: 1%;
+  background-color: var(--light_green);
 }
 
 /* ----------------------------------------------
