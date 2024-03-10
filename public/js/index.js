@@ -1,70 +1,62 @@
 const cardArea = document.getElementById("cardArea");
 const rowList = cardArea.getElementsByClassName("row");
 const charLimit = 300;
+let imagesLoaded = 6; 
 
 /**
  * Gets thoughts from the server to be displayed
  */
 function getThoughts() {
-  db.collection("thoughts").get()   //the collection called "hikes"
+  db.collection("thoughts").get() 
     .then((allThoughts) => {
+      const thoughtData = []; 
+      allThoughts.forEach((thought) => {
+        thoughtData.push(thought); 
+      });
+
       ajaxGET("/cardRow", function (jsonData) {
         let cardJson = JSON.parse(jsonData);
-        //console.log("Json data:", cardJson);
 
-        //Need an iterator so we dont have more than 3 per row!
-        let column = 0;
-        //To keep track of which row we're on
-        let row = 0;
-
-        //this deals with initializing the page
         if (rowList.length == 0) {
           createNewRow(cardJson.row);
         }
-        //Currently it'll just read everything in the database
-        //We could modify it later to only grab X amount.
-        allThoughts.forEach((thought) => {
-          if (
-            (column != 0)
-            && (column % 3 == 0)) { // Checks if we need to move down a row
-            row++;
-            column = 0;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-            }
-          }
-          while (rowList[row].children.length >= 3) { // If the row if already full
-            row++;
-            if (row >= rowList.length) { // Check if we need to make a new row
-              createNewRow(cardJson.row);
-              break;
-            }
-          }
-          let currentRow = rowList[row];
 
-          //console.log(thoughtText);
+        let currentRow = rowList[rowList.length - 1]; 
 
+        let column = currentRow.children.length; 
+
+        thoughtData.slice(0, imagesLoaded).forEach((thought, index) => {
+          if (column >= 3) { 
+            createNewRow(cardJson.row);
+            currentRow = rowList[rowList.length - 1]; 
+            column = 0; 
+          }
           var card = createNewCard(cardJson, thought);
           currentRow.append(card);
           column++;
         });
+
+        // Add scroll event listener for infinite scrolling
+        window.addEventListener('scroll', function () {
+          if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            // Load more images
+            imagesLoaded += 6; 
+            thoughtData.slice(imagesLoaded - 6, imagesLoaded).forEach((thought, index) => {
+              if (column >= 3) { 
+                createNewRow(cardJson.row);
+                currentRow = rowList[rowList.length - 1]; 
+                column = 0; 
+              }
+              var card = createNewCard(cardJson, thought);
+              currentRow.append(card);
+              column++;
+            });
+          }
+        });
       });
-    })/*.then(() => { //Currently doesnt work. Row Count is 0.
-      //Check if our last row is too short
-      let rowCount = rowList.length;
-      console.log(`row count: ${rowCount}`);
-      let lastRow = rowList[rowCount-1];
-      console.log(lastRow.hasChildNodes);
-      if (
-        (lastRow.hasChildNodes) 
-        && (lastRow.children.length < 3)
-        ) {
-        //if it is, delete it.
-        console.log("Removing last row.");
-        cardArea.removeChild(lastRow);
-      }
-    })*/;
+    });
 }
+
 
 function createNewRow(classNames) {
   let div = document.createElement("div");
@@ -100,7 +92,7 @@ function createNewCard(jsonData, thought) {
   }
   thoughtText = `<p>${thoughtText}</p>`;
   //if its a default image
-  if (thought.data().default == 1){
+  if (thought.data().default == 1) {
     //Put the text on the front
     back.append(image);
     front.innerHTML = thoughtText;
@@ -110,7 +102,7 @@ function createNewCard(jsonData, thought) {
   }
   card.append(front, back);
   card.addEventListener("click", onCardClick);
-  
+
   return card;
 }
 
