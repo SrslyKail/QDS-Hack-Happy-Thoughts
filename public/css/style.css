@@ -33,6 +33,10 @@ a.navbar-brand {
   --bs-navbar-toggler-focus-width: none;
 }
 
+.navbar li {
+  cursor: pointer;
+}
+
 .btn {
   background-color: var(--primary_blue);
   color: var(--light_green);
