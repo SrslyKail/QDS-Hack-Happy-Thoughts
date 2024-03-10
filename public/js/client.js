@@ -66,5 +66,34 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
+// Function to fetch quotes from Firestore
+async function fetchQuotes() {
+  try {
+    const snapshot = await db.collection('quotes').get();
+    const quotes = [];
+    snapshot.forEach(doc => {
+      quotes.push(doc.data().quote_text);
+    });
+    return quotes;
+  } catch (error) {
+    console.error('Error fetching quotes:', error);
+    return []; 
+  }
+}
 
+// Update the modal body with a random quote
+async function updateModalBody() {
+  try {
+    const quotes = await fetchQuotes();
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
+    const modalBody = document.querySelector('.modal-body');
+    if (modalBody) {
+      modalBody.innerText = randomQuote;
+    }
+  } catch (error) {
+    console.error('Error updating modal body:', error);
+  }
+}
 
+updateModalBody();
