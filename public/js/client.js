@@ -3,6 +3,7 @@
 
 const cardArea = document.getElementById("cardArea");
 const rowList = cardArea.getElementsByClassName("row");
+const charLimit = 300;
 
 function ajaxGET(url, callback) {
   const xhr = new XMLHttpRequest();
@@ -153,7 +154,11 @@ function createNewCard(jsonData, img, thought) {
   image.className = jsonData.image;
   front.className = jsonData.front;
   back.className = jsonData.back;
-  back.innerHTML = `<p>${thought}</p>`;
+  let text = thought;
+  if (text.length > charLimit) {
+    text = text.substring(0, charLimit) + '\u2026';
+  }
+  back.innerHTML = `<p>${text}</p>`;
   front.append(image);
   card.append(front, back);
 
@@ -216,12 +221,16 @@ $(document).ready(function () {
 
 function stopHeartbeat(){
   this.classList.remove('heartbeat');
-  cardArea.classList.remove('hidden');
+  //cardArea.classList.remove('hidden');
   //Get the modal close button and set it to delete itself after we close it.
   let modalFooter = document.getElementsByClassName("modal-footer")[0].children[0];
   modalFooter.addEventListener("click", function() {
     let modal = document.getElementById("exampleModal");
     modal.remove();
+    let hiddenElements = Array.from(document.getElementsByClassName('hidden'));
+    for (elem in hiddenElements) {
+      hiddenElements[elem].classList.remove('hidden');
+    }
   });
 }
 
