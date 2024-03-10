@@ -225,8 +225,8 @@ function stopHeartbeat(){
   //Get the modal close button and set it to delete itself after we close it.
   let modalFooter = document.getElementsByClassName("modal-footer")[0].children[0];
   modalFooter.addEventListener("click", function() {
-    let modal = document.getElementById("exampleModal");
-    modal.remove();
+    let intro = document.getElementById("intro");
+    intro.remove();
     let hiddenElements = Array.from(document.getElementsByClassName('hidden'));
     hiddenElements.forEach(function (elem, index) {
       elem.classList.remove('hidden');
