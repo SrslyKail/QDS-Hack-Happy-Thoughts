@@ -1,10 +1,5 @@
 
 //console.log("Client script loaded.");
-
-const cardArea = document.getElementById("cardArea");
-const rowList = cardArea.getElementsByClassName("row");
-const charLimit = 300;
-
 function ajaxGET(url, callback) {
   const xhr = new XMLHttpRequest();
   //console.log("xhr", xhr);
@@ -24,23 +19,6 @@ function ajaxGET(url, callback) {
   xhr.open("GET", url);
   xhr.send();
 }
-
-//default setup to be clickable
-document.querySelectorAll(".clear").forEach(function (currentElement, currentIndex, listObj) {
-
-  //console.log(currentElement, currentIndex, listObj);
-  currentElement.addEventListener("click", function (e) {
-    //console.log(e);
-    for (let i = 0; i < this.parentNode.childNodes.length; i++) {
-      if (this.parentNode.childNodes[i].nodeType == Node.ELEMENT_NODE) {
-        if (this.parentNode.childNodes[i].getAttribute("class") == "ajax-stuff") {
-          this.parentNode.childNodes[i].innerHTML = "";
-          break;
-        }
-      }
-    }
-  });
-});
 
 //loads navbar with dom
 if (document.readyState !== 'loading') {
@@ -346,13 +324,13 @@ document.querySelector("#navbarPlaceholder").addEventListener("mousemove", funct
     //console.log("hamburger loaded");
     ajaxGET("/hamburger", function (data) {
       let parsedData = JSON.parse(data);
-      let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>Happy Thoughts!</h2></td></tr>";
+      let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>HAPPY THOUGHTS!</h2></td></tr>";
       for (let i = 0; i < parsedData.length; i++) {
         let item = parsedData[i];
         str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
 
       }
-      str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">Submit a Post</a></td></tr></table></div>";
+      str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">SUBMIT A POST</a></td></tr></table></div>";
       document.getElementById("hamburger").innerHTML = str;
       //console.log(str);
     });
@@ -367,27 +345,34 @@ document.body.addEventListener("click", function (e) {
   }
 });
 
-
-$(document).ready(function () {
-  let envelope = document.querySelector('.envelope');
-  // Add a click event listener to the envelope element
-  envelope.addEventListener('click', stopHeartbeat, { once: true });
-});
-
-function stopHeartbeat() {
-  this.classList.remove('heartbeat');
-  //cardArea.classList.remove('hidden');
-  //Get the modal close button and set it to delete itself after we close it.
-  let modalFooter = document.getElementsByClassName("modal-footer")[0].children[0];
-  modalFooter.addEventListener("click", function () {
-    let intro = document.getElementById("intro");
-    intro.remove();
-    let hiddenElements = Array.from(document.getElementsByClassName('hidden'));
-    hiddenElements.forEach(function (elem, index) {
-      elem.classList.remove('hidden');
-      elem.classList.add("fade-in-effect");
+// Function to fetch quotes from Firestore
+async function fetchQuotes() {
+  try {
+    const snapshot = await db.collection('quotes').get();
+    const quotes = [];
+    snapshot.forEach(doc => {
+      quotes.push(doc.data().quote_text);
     });
-  });
+    return quotes;
+  } catch (error) {
+    console.error('Error fetching quotes:', error);
+    return []; 
+  }
 }
 
+// Update the modal body with a random quote
+async function updateModalBody() {
+  try {
+    const quotes = await fetchQuotes();
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const randomQuote = quotes[randomIndex];
+    const modalBody = document.querySelector('.modal-body');
+    if (modalBody) {
+      modalBody.innerText = randomQuote;
+    }
+  } catch (error) {
+    console.error('Error updating modal body:', error);
+  }
+}
 
+updateModalBody();
