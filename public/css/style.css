@@ -43,7 +43,7 @@ a.navbar-brand {
   letter-spacing: .2rem;
 }
 
-.btn:hover {
+.btn:hover, .btn:active {
   background-color: rgba(0, 71, 119, 0.9);
   color: rgba(199, 249, 204, 0.9);
   margin-right: 10px;
