@@ -2,7 +2,7 @@
 //console.log("Client script loaded.");
 
 const cardArea = document.getElementById("cardArea");
-const rowList = cardArea.getElementsByClassName("row");
+/*const rowList = cardArea.getElementsByClassName("row");*/
 const charLimit = 300;
 
 function ajaxGET(url, callback) {
@@ -181,8 +181,6 @@ function onCardClick(e) {
 
 getThoughts()
 
-
-
 document.addEventListener('thoughtsLoaded', function () {
   let cards = document.querySelectorAll(".card-inner");
   console.log(cards)
@@ -195,7 +193,7 @@ document.addEventListener('thoughtsLoaded', function () {
 });
 
 //loads hamburger menu on click
-document.querySelector("#navbarPlaceholder").addEventListener("mousemove", function (e) {
+document.querySelector("#navbarPlaceholder").addEventListener("load", function (e) {
   document.getElementById("hamburger").addEventListener("click", function (e) {
     //console.log("hamburger loaded");
     ajaxGET("/hamburger", function (data) {
@@ -244,4 +242,22 @@ function stopHeartbeat() {
   });
 }
 
-
+//navbar links
+document.querySelector("#navbarPlaceholder").addEventListener("mousedown", function (e) {
+  document.querySelector(".nav-item-1").addEventListener('click', function (e) {
+    window.open("./index.html", "_self");
+    //console.log("1 works");
+  })
+  document.querySelector(".nav-item-2").addEventListener('click', function (e) {
+    window.open("/about.html", "_self");
+    //console.log("2 works");
+  })
+  document.querySelector(".nav-item-3").addEventListener('click', function (e) {
+    window.open("/terms.html", "_self");
+    //console.log("3 works");
+  })
+  document.querySelector(".nav-item-4").addEventListener('click', function (e) {
+    window.open("/resources.html", "_self");
+    //console.log("4 works");
+  })
+});
