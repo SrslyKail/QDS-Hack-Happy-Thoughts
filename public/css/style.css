@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: "Hind";
+  font-family: "Hind", Tahoma, sans-serif;
   background-color: var(--primary_green);
   color: #1F4736;
 }
@@ -29,6 +29,7 @@ a.navbar-brand {
 .navbar {
   background-color: var(--primary_green);
   text-transform: uppercase;
+  --bs-navbar-toggler-focus-width: none;
 }
 
 .btn {
@@ -41,6 +42,18 @@ a.navbar-brand {
   font-size: larger;
   letter-spacing: .2rem;
 }
+
+.btn:hover {
+  background-color: rgba(0, 71, 119, 0.9);
+  color: rgba(199, 249, 204, 0.9);
+  margin-right: 10px;
+  border-color: rgba(0, 36, 79, 0.9);
+  border-width: 2px;
+  padding: 8px 20px 8px 20px;
+  font-size: larger;
+  letter-spacing: .2rem;
+}
+
 
 .envelope{
   margin-left:35% ;
@@ -361,6 +374,7 @@ a.navbar-brand {
   #hamenu h2 {
     margin-top:20px;
     color: var(--primary_blue);
+    font-weight: bold;
   }
   #hamenu .btn {
     visibility: visible;
