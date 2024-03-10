@@ -190,20 +190,22 @@ document.addEventListener('thoughtsLoaded', function() {
 });
 
 //loads hamburger menu on click
-document.querySelector("#navbarPlaceholder").addEventListener("click", function (e) {
-  console.log("hamburger loaded");
-  ajaxGET("/hamburger", function (data) {
+document.querySelector("#navbarPlaceholder").addEventListener("mousemove", function (e) {
+  document.getElementById("hamburger").addEventListener("click", function (e){
+    //console.log("hamburger loaded");
+    ajaxGET("/hamburger", function (data) {
       let parsedData = JSON.parse(data);
-          let str = "<table>";
+          let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>Happy Thoughts!</h2></td></tr>";
           for(let i = 0; i < parsedData.length; i++) {
               let item = parsedData[i];
-              str += "<tr><td id=firsttd>" + item["item"] + "</td><td></td></tr>";
+              str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
                   
           }
-          str += "</table>";
+          str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">Submit a Post</a></td></tr></table></div>";
           document.getElementById("hamburger").innerHTML = str;
-          console.log(str);
+          //console.log(str);
   });
+  })
 });
 
 $(document).ready(function () {
