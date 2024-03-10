@@ -327,7 +327,7 @@ document.querySelector("#navbarPlaceholder").addEventListener("mousedown", funct
       let str = "<div id=\"hamenu\"><table><tr><td id=\"title\"><h2>HAPPY THOUGHTS!</h2></td></tr>";
       for (let i = 0; i < parsedData.length; i++) {
         let item = parsedData[i];
-        str += "<tr><td id=\"item" + i + "\">" + item["item"] + "</td></tr>";
+        str += "<tr><td class=\"nav-item" + (i+1) + "\">" + item["item"] + "</td></tr>";
 
       }
       str += "<tr><td id=\"itemsubmit\"><a class=\"btn\" href=\"/SubmitThought.html\">SUBMIT A POST</a></td></tr></table></div>";
