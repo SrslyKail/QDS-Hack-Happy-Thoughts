@@ -97,8 +97,9 @@ a.navbar-brand {
 .card {
   --bs-card-bg: var(--medium_green);
   border-width: 2px;
-  height: 50vh;
-  aspect-ratio: 1/1;
+  height: 33vw;
+  width: 33vw;
+  max-width: 33vw;
   transition: transform 1s;
   transform-style: preserve-3d;
   cursor: pointer;
@@ -374,11 +375,11 @@ a.navbar-brand {
 
 @media only screen and (max-width: 990px) {
   .card {
-    max-width: 600px;
-    max-height: unset;
-    flex-basis: 80%;
+    width: 80vw;
+    height: 60vw;
+    max-width: unset;
+    flex-basis: 100%;
   }
-  
 
   .navbar .btn {
     visibility: hidden;
