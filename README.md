@@ -1,4 +1,6 @@
 # QDS-Hack-Happy-Thoughts 😄
+<img src="public/img/favicon.ico" alt="alt text" height="200px">
+
 
 ### An app where students can see other students sharing thoughts or images and bring positivity and take a minute to breath
 <img src="https://img.shields.io/badge/HTML5-DD4B25" alt="HTML5"> <img src="https://img.shields.io/badge/JavaScript-EBD54D" alt="JS"> <img src="https://img.shields.io/badge/Node.js-6FA660" alt="Node.js"> <img src="https://img.shields.io/badge/CSS3-2862E9" alt="CSS3">
@@ -11,7 +13,6 @@ Happy-Thoughts is a web application designed to empower students by providing a 
 - Node.js for backend development.
 - Firebase for login flow and database integration.
 - Frontend technologies like HTML, CSS, and JavaScript for the user interface.
-- animista for CSS animations.enhancements.
 
 ## Installation
 
@@ -30,9 +31,8 @@ Happy-Thoughts is a web application designed to empower students by providing a 
     `nodemon index.js`
 
 
-## Project Components and Tasks
+## Features
 
-### Features
 
 1. **Anonymous Posting**: Users can submit text and/or images anonymously.
 2. **Card Display**: Posts are displayed as styled cards resembling polaroids and it can be flipped to see text behind.
@@ -41,9 +41,6 @@ Happy-Thoughts is a web application designed to empower students by providing a 
 5. **Personal Letter Animation**: Animate the opening of a personal letter on user interaction.
 
 
-### Additional Tasks
-
-(not sure about this part)
 
 ## Initial UI Sketches and Wireframes
 
@@ -65,9 +62,8 @@ Happy-Thoughts is a web application designed to empower students by providing a 
 - Polina Omelyantseva
 
 ## Resources
-
-- Placeholder images for default cards.
 - PHSA resources for links and information.
+- Animista for CSS animations enhancements.
 
 
 
