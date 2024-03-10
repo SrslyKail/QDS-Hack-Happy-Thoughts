@@ -63,7 +63,9 @@ a.navbar-brand {
 
 #cardArea * {
   display: flex;
-  /* flex-direction: row; */
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   /* comment out to make the image to fill the entire card */
 }
 
@@ -76,8 +78,7 @@ a.navbar-brand {
 .card {
   --bs-card-bg: var(--medium_green);
   border-width: 2px;
-  max-width: 30vw;
-  max-height: 50vh;
+  height: 50vh;
   aspect-ratio: 1/1;
   transition: transform 1s;
   transform-style: preserve-3d;
@@ -91,7 +92,8 @@ a.navbar-brand {
 }
 
 .card-body {
-  max-height: inherit;
+  height: inherit;
+  width: inherit;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
