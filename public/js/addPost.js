@@ -60,9 +60,7 @@ function handleSubmit(event) {
 
     // Prepare data object
     var data = {
-        // TODO: change the default image to something else 
-        // image: images[Math.floor(Math.random() * images.length)];
-        image: "https://firebasestorage.googleapis.com/v0/b/hack-happy-thoughts.appspot.com/o/images%2Ffff.png?alt=media&token=a7e13e0d-6079-470f-97fc-e6366e8c1bc6",
+        image: "https://loremflickr.com/640/360",
         text: thoughtText,
         default: 1,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
