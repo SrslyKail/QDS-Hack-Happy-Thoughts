@@ -97,10 +97,6 @@ a.navbar-brand {
   position: relative;
 }
 
-.stop-heartbeat {
-  animation: none !important;
-}
-
 .card * {
   display: flex;
 }
