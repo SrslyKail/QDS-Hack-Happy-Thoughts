@@ -8,14 +8,13 @@ let imagesLoaded = 6;
  */
 function getThoughts(filter = null) {
   //clear previous cards from the card area
-  let cardArea = document.getElementById("cardArea");
   cardArea.innerHTML="";
   //iterators for rows and columns;
   let row = 0;
   let column = 0;
   //if custom image is a priority, filters cards displaying cards with the custom images first
   if (filter=='image'){
-    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
         //console.log("filtering");
         const thoughtData = []; 
@@ -66,7 +65,7 @@ function getThoughts(filter = null) {
     });
     });
     //loads non-prioritized imgs 
-    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
         const thoughtData = []; 
       allThoughts.forEach((thought) => {
@@ -117,7 +116,7 @@ function getThoughts(filter = null) {
     });
     //if default image is a priority, filters cards displaying cards with the default images first
   } else if (filter=='text'){
-    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
         const thoughtData = []; 
       allThoughts.forEach((thought) => {
@@ -167,7 +166,7 @@ function getThoughts(filter = null) {
     });
     });
     //loads non-prioritized imgs
-    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
         const thoughtData = []; 
       allThoughts.forEach((thought) => {
