@@ -61,21 +61,180 @@ if (document.readyState !== 'loading') {
   });
 }
 
+//Event listeners for filtering buttons
+let imgFilter = document.getElementById("imgflt");
+imgFilter.addEventListener("click", function (){
+  getThoughts(filter='image');
+});
+
+let textFilter = document.getElementById("txtflt");
+textFilter.addEventListener("click", function (){
+  getThoughts(filter='text');
+});
 
 /**
- * Gets thoughts from the server to be displayed
+ * Gets thoughts from the server to be displayed and filters them
+ * I know, looks terrible, but it is what it is
  */
-function getThoughts() {
-  db.collection("thoughts").get()   //the collection called "hikes"
+function getThoughts(filter = null) {
+  //clear previous cards from the card area
+  let cardArea = document.getElementById("cardArea");
+  cardArea.innerHTML="";
+  //iterators for rows and columns;
+  let row = 0;
+  let column = 0;
+  //if custom image is a priority, filters cards displaying cards with the custom images first
+  if (filter=='image'){
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        //console.log("filtering");
+        let cardJson = JSON.parse(jsonData);
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+        allThoughts.forEach((thought) => {
+          if (
+            (column != 0)
+            && (column % 3 == 0)) { // Checks if we need to move down a row
+            row++;
+            column = 0;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+            }
+          }
+          while (rowList[row].children.length >= 3) { // If the row if already full
+            row++;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+              break;
+            }
+          }
+          let currentRow = rowList[row];
+          let image = thought.data().image;
+          let thoughtText = thought.data().text;
+          var card = createNewCard(cardJson, image, thoughtText);
+          currentRow.append(card);
+          column++;
+        });
+      });
+    });
+    //loads non-prioritized imgs 
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        //console.log("filtering");
+        let cardJson = JSON.parse(jsonData);
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+        allThoughts.forEach((thought) => {
+          if (
+            (column != 0)
+            && (column % 3 == 0)) { // Checks if we need to move down a row
+            row++;
+            column = 0;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+            }
+          }
+          while (rowList[row].children.length >= 3) { // If the row if already full
+            row++;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+              break;
+            }
+          }
+          let currentRow = rowList[row];
+          let image = thought.data().image;
+          let thoughtText = thought.data().text;
+          var card = createNewCard(cardJson, image, thoughtText);
+          currentRow.append(card);
+          column++;
+        });
+      });
+    });
+    //if default image is a priority, filters cards displaying cards with the default images first
+  } else if (filter=='text'){
+    db.collection("thoughts").where("default", "==", 0).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        //console.log("filtering");
+        let cardJson = JSON.parse(jsonData);
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+        allThoughts.forEach((thought) => {
+          if (
+            (column != 0)
+            && (column % 3 == 0)) { // Checks if we need to move down a row
+            row++;
+            column = 0;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+            }
+          }
+          while (rowList[row].children.length >= 3) { // If the row if already full
+            row++;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+              break;
+            }
+          }
+          let currentRow = rowList[row];
+          let image = thought.data().image;
+          let thoughtText = thought.data().text;
+          var card = createNewCard(cardJson, image, thoughtText);
+          currentRow.append(card);
+          column++;
+        });
+      });
+    });
+    //loads non-prioritized imgs
+    db.collection("thoughts").where("default", "==", 1).get().then((allThoughts) => {
+      ajaxGET("/cardRow", function (jsonData) {
+        //console.log("filtering");
+        let cardJson = JSON.parse(jsonData);
+        if (rowList.length == 0) {
+          createNewRow(cardJson.row);
+        }
+        allThoughts.forEach((thought) => {
+          if (
+            (column != 0)
+            && (column % 3 == 0)) { // Checks if we need to move down a row
+            row++;
+            column = 0;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+            }
+          }
+          while (rowList[row].children.length >= 3) { // If the row if already full
+            row++;
+            if (row >= rowList.length) { // Check if we need to make a new row
+              createNewRow(cardJson.row);
+              break;
+            }
+          }
+          let currentRow = rowList[row];
+          let image = thought.data().image;
+          let thoughtText = thought.data().text;
+          var card = createNewCard(cardJson, image, thoughtText);
+          currentRow.append(card);
+          column++;
+        });
+      });
+    });  
+  } 
+  else{
+    //no filters applied
+    db.collection("thoughts").get()  
     .then((allThoughts) => {
       ajaxGET("/cardRow", function (jsonData) {
+        //console.log("not filtering");
         let cardJson = JSON.parse(jsonData);
         //console.log("Json data:", cardJson);
 
         //Need an iterator so we dont have more than 3 per row!
-        let column = 0;
+        //let column = 0;
         //To keep track of which row we're on
-        let row = 0;
+        //let row = 0;
 
         //this deals with initializing the page
         if (rowList.length == 0) {
@@ -105,27 +264,14 @@ function getThoughts() {
           let thoughtText = thought.data().text;
 
           //console.log(thoughtText);
-
           var card = createNewCard(cardJson, image, thoughtText);
           currentRow.append(card);
           column++;
         });
       });
-    })/*.then(() => { //Currently doesnt work. Row Count is 0.
-      //Check if our last row is too short
-      let rowCount = rowList.length;
-      console.log(`row count: ${rowCount}`);
-      let lastRow = rowList[rowCount-1];
-      console.log(lastRow.hasChildNodes);
-      if (
-        (lastRow.hasChildNodes) 
-        && (lastRow.children.length < 3)
-        ) {
-        //if it is, delete it.
-        console.log("Removing last row.");
-        cardArea.removeChild(lastRow);
-      }
-    })*/;
+    });
+  }
+  
 }
 
 function createNewRow(classNames) {
