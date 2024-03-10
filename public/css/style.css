@@ -431,6 +431,24 @@ a.navbar-brand {
     z-index: 1;
   }
 
+  .filters {
+    text-align: center;
+  }
+
+  .filter .btn {
+      width: 100%;
+      margin: 5px 0;
+      padding: 15px;
+      font-size: 18px;
+  }
+
+}
+
+
+  .filters h3{
+    font-size: 16px;
+  }
+
   #hamenu table {
     margin-left: 20px;
     margin-bottom: 20px;
