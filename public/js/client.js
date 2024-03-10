@@ -228,9 +228,10 @@ function stopHeartbeat(){
     let modal = document.getElementById("exampleModal");
     modal.remove();
     let hiddenElements = Array.from(document.getElementsByClassName('hidden'));
-    for (elem in hiddenElements) {
-      hiddenElements[elem].classList.remove('hidden');
-    }
+    hiddenElements.forEach(function (elem, index) {
+      elem.classList.remove('hidden');
+      elem.classList.add("fade-in-effect");
+    });
   });
 }
 
