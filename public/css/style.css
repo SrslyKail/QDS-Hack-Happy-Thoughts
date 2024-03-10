@@ -107,6 +107,7 @@ a.navbar-brand {
 
 .card-body {
   max-height: inherit;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
